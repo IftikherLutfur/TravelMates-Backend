@@ -125,7 +125,13 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   name: 'name',
   password: 'password',
-  createdAt: 'createdAt'
+  bio: 'bio',
+  travelInterest: 'travelInterest',
+  visitedCountries: 'visitedCountries',
+  currentLocation: 'currentLocation',
+  profileImage: 'profileImage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
