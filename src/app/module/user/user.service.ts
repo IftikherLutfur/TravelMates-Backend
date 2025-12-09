@@ -23,6 +23,16 @@ const userCreation = async (payload: any) => {
   return user
 }
 
+const getOwnUser = async (email: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email
+    }
+  })
+return user;
+}
+
 export const userService = {
-  userCreation
+  userCreation,
+  getOwnUser
 } 

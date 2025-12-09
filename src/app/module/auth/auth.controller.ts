@@ -31,7 +31,6 @@ const login = async (req: Request, res: Response) => {
         console.log(error)
     }
 }
-
 const logout = async (req: Request, res: Response) => {
     try {
         res.clearCookie("accessToken", {

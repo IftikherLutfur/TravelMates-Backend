@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import { userService } from "./user.service"
+import { sendResponse } from "../../../utils/resHelper"
+import { IJWTPayload } from "../../../middleware/isAuthorized"
 
 const userCreation = async (req: Request, res: Response) => {
     try {
@@ -13,6 +15,24 @@ const userCreation = async (req: Request, res: Response) => {
     }
 }
 
+const getOwnUser = async (req: Request, res: Response) => {
+  try {
+    const email = req.user.email;
+
+    const user = await userService.getOwnUser(email);
+
+    sendResponse(res, {
+      statusCode: 200,
+      message: "Got your account",
+      data: user,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 export const userCOntroller = {
-    userCreation
+    userCreation,
+    getOwnUser
 }
