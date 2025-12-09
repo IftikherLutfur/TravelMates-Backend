@@ -10,7 +10,8 @@ datasource db {
 model User {
   id               String   @id @default(uuid())
   email            String   @unique
-  name             String?
+  name             String
+  role             Role     @default(USER)
   password         String
   bio              String?
   travelInterest   String[] @default([])
@@ -19,4 +20,9 @@ model User {
   profileImage     String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
 }

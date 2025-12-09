@@ -8,15 +8,21 @@ datasource db {
 }
 
 model User {
-    id               String   @id @default(uuid())
-    email            String   @unique
-    name             String?
-    password         String
-    bio              String?
-    travelInterest   String[] @default([])
-    visitedCountries String[] @default([])
-    currentLocation  String?
-    profileImage     String?
-    createdAt        DateTime @default(now())
-    updatedAt        DateTime @updatedAt
+  id               String   @id @default(uuid())
+  email            String   @unique
+  name             String
+  role             Role     @default(USER)
+  password         String
+  bio              String?
+  travelInterest   String[] @default([])
+  visitedCountries String[] @default([])
+  currentLocation  String?
+  profileImage     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
 }

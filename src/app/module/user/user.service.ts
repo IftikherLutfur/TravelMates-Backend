@@ -15,7 +15,9 @@ const userCreation = async (payload: any) => {
     data: {
       name: payload.name,
       email: payload.email,
-      password: hashedPassword
+      role: payload.role,
+      password: hashedPassword,
+
     }
   })
   return user

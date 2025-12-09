@@ -1,9 +1,8 @@
 import bcrypt from "bcryptjs"
 import { prisma } from "../../../lib/prisma"
-import jwt, { Secret, SignOptions } from "jsonwebtoken"
+import generateToken from "../../../utils/jwt"
 
-const login = async (payload: any) => {
-    // 1️⃣ user খোঁজা
+const login = async (payload: { email: string, password: string }) => {
     const user = await prisma.user.findUnique({
         where: {
             email: payload.email,
@@ -26,30 +25,14 @@ const login = async (payload: any) => {
         throw new Error("Invalid credentials")
     }
 
-    const jwtSecret = process.env.JWT_SECRET
-    if (!jwtSecret) {
-        throw new Error("JWT_SECRET is not defined")
-    }
+    const accessToken = generateToken({ email: user.email, role: user.role }, process.env.JWT_SECRET as string, process.env.JWT_EXPIRES as string)
+    const refreshToken = generateToken({ email: user.email, role: user.role }, process.env.JWT_SECRET as string, process.env.JWT_EXPIRES as string)
 
-    const expiresIn: SignOptions["expiresIn"] =
-        (process.env.JWT_EXPIRES as SignOptions["expiresIn"]) ?? "1d"
-
-    const token = jwt.sign({
-        userId: user.id,
-        email: user.email
-    },
-        jwtSecret,
-        {
-            expiresIn
-        }
-
-    )
-
-    // 5️⃣ success response (password ছাড়া)
-    const { password, ...userWithoutPassword } = user
+    const { ...userWithoutPassword } = user
 
     return {
-        accessToken: token,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
         data: userWithoutPassword
     }
 }
