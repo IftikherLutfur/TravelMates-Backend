@@ -29,10 +29,29 @@ const getOwnUser = async (email: string) => {
       email: email
     }
   })
-return user;
+  return user;
+}
+
+const editUser = async (email: string, payload: any) => {
+  const edit = await prisma.user.update({
+    data: {
+      bio: payload.bio,
+      name: payload.name,
+      currentLocation: payload.currentLocation,
+      password: payload.password,
+      profileImage: payload.profileImage,
+      travelInterest: payload.travelInterest,
+      visitedCountries: payload.visitedCountries,
+    },
+    where: {
+      email: email
+    }
+  })
+  return edit
 }
 
 export const userService = {
   userCreation,
-  getOwnUser
+  getOwnUser,
+  editUser
 } 
