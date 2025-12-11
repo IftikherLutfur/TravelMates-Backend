@@ -1,6 +1,7 @@
 import express from "express"
 import { userCOntroller } from "./user.controller";
 import auth from "../../../middleware/isAuthorized";
+import { Role } from "../../../../prisma/generated/prisma";
 const user = express.Router();
 
 user.post("/userCreate", userCOntroller.userCreation)

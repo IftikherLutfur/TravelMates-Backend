@@ -18,12 +18,26 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Travel
+ * 
+ */
+export type Travel = $Result.DefaultSelection<Prisma.$TravelPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const TravelType: {
+  SOLO: 'SOLO',
+  FAMILY: 'FAMILY',
+  FRIENDS: 'FRIENDS'
+};
+
+export type TravelType = (typeof TravelType)[keyof typeof TravelType]
+
+
+export const Role: {
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
@@ -31,6 +45,10 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 }
+
+export type TravelType = $Enums.TravelType
+
+export const TravelType: typeof $Enums.TravelType
 
 export type Role = $Enums.Role
 
@@ -162,6 +180,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.travel`: Exposes CRUD operations for the **Travel** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Travels
+    * const travels = await prisma.travel.findMany()
+    * ```
+    */
+  get travel(): Prisma.TravelDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -596,7 +624,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    Travel: 'Travel'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +641,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "travel"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +716,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Travel: {
+        payload: Prisma.$TravelPayload<ExtArgs>
+        fields: Prisma.TravelFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TravelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TravelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>
+          }
+          findFirst: {
+            args: Prisma.TravelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TravelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>
+          }
+          findMany: {
+            args: Prisma.TravelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>[]
+          }
+          create: {
+            args: Prisma.TravelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>
+          }
+          createMany: {
+            args: Prisma.TravelCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TravelCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>[]
+          }
+          delete: {
+            args: Prisma.TravelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>
+          }
+          update: {
+            args: Prisma.TravelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>
+          }
+          deleteMany: {
+            args: Prisma.TravelDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TravelUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TravelUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>[]
+          }
+          upsert: {
+            args: Prisma.TravelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelPayload>
+          }
+          aggregate: {
+            args: Prisma.TravelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTravel>
+          }
+          groupBy: {
+            args: Prisma.TravelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TravelGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TravelCountArgs<ExtArgs>
+            result: $Utils.Optional<TravelCountAggregateOutputType> | number
           }
         }
       }
@@ -799,6 +902,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    travel?: TravelOmit
   }
 
   /* Types for Logging */
@@ -1958,6 +2062,1087 @@ export namespace Prisma {
 
 
   /**
+   * Model Travel
+   */
+
+  export type AggregateTravel = {
+    _count: TravelCountAggregateOutputType | null
+    _avg: TravelAvgAggregateOutputType | null
+    _sum: TravelSumAggregateOutputType | null
+    _min: TravelMinAggregateOutputType | null
+    _max: TravelMaxAggregateOutputType | null
+  }
+
+  export type TravelAvgAggregateOutputType = {
+    budgetRange: number | null
+  }
+
+  export type TravelSumAggregateOutputType = {
+    budgetRange: number | null
+  }
+
+  export type TravelMinAggregateOutputType = {
+    id: string | null
+    destination: string | null
+    startDate: Date | null
+    endDate: Date | null
+    budgetRange: number | null
+    travelType: $Enums.TravelType | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TravelMaxAggregateOutputType = {
+    id: string | null
+    destination: string | null
+    startDate: Date | null
+    endDate: Date | null
+    budgetRange: number | null
+    travelType: $Enums.TravelType | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TravelCountAggregateOutputType = {
+    id: number
+    destination: number
+    startDate: number
+    endDate: number
+    budgetRange: number
+    travelType: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TravelAvgAggregateInputType = {
+    budgetRange?: true
+  }
+
+  export type TravelSumAggregateInputType = {
+    budgetRange?: true
+  }
+
+  export type TravelMinAggregateInputType = {
+    id?: true
+    destination?: true
+    startDate?: true
+    endDate?: true
+    budgetRange?: true
+    travelType?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TravelMaxAggregateInputType = {
+    id?: true
+    destination?: true
+    startDate?: true
+    endDate?: true
+    budgetRange?: true
+    travelType?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TravelCountAggregateInputType = {
+    id?: true
+    destination?: true
+    startDate?: true
+    endDate?: true
+    budgetRange?: true
+    travelType?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TravelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Travel to aggregate.
+     */
+    where?: TravelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Travels to fetch.
+     */
+    orderBy?: TravelOrderByWithRelationInput | TravelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TravelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Travels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Travels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Travels
+    **/
+    _count?: true | TravelCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TravelAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TravelSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TravelMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TravelMaxAggregateInputType
+  }
+
+  export type GetTravelAggregateType<T extends TravelAggregateArgs> = {
+        [P in keyof T & keyof AggregateTravel]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTravel[P]>
+      : GetScalarType<T[P], AggregateTravel[P]>
+  }
+
+
+
+
+  export type TravelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TravelWhereInput
+    orderBy?: TravelOrderByWithAggregationInput | TravelOrderByWithAggregationInput[]
+    by: TravelScalarFieldEnum[] | TravelScalarFieldEnum
+    having?: TravelScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TravelCountAggregateInputType | true
+    _avg?: TravelAvgAggregateInputType
+    _sum?: TravelSumAggregateInputType
+    _min?: TravelMinAggregateInputType
+    _max?: TravelMaxAggregateInputType
+  }
+
+  export type TravelGroupByOutputType = {
+    id: string
+    destination: string
+    startDate: Date
+    endDate: Date
+    budgetRange: number
+    travelType: $Enums.TravelType
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TravelCountAggregateOutputType | null
+    _avg: TravelAvgAggregateOutputType | null
+    _sum: TravelSumAggregateOutputType | null
+    _min: TravelMinAggregateOutputType | null
+    _max: TravelMaxAggregateOutputType | null
+  }
+
+  type GetTravelGroupByPayload<T extends TravelGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TravelGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TravelGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TravelGroupByOutputType[P]>
+            : GetScalarType<T[P], TravelGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TravelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    destination?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    budgetRange?: boolean
+    travelType?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["travel"]>
+
+  export type TravelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    destination?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    budgetRange?: boolean
+    travelType?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["travel"]>
+
+  export type TravelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    destination?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    budgetRange?: boolean
+    travelType?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["travel"]>
+
+  export type TravelSelectScalar = {
+    id?: boolean
+    destination?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    budgetRange?: boolean
+    travelType?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destination" | "startDate" | "endDate" | "budgetRange" | "travelType" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
+
+  export type $TravelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Travel"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      destination: string
+      startDate: Date
+      endDate: Date
+      budgetRange: number
+      travelType: $Enums.TravelType
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["travel"]>
+    composites: {}
+  }
+
+  type TravelGetPayload<S extends boolean | null | undefined | TravelDefaultArgs> = $Result.GetResult<Prisma.$TravelPayload, S>
+
+  type TravelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TravelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TravelCountAggregateInputType | true
+    }
+
+  export interface TravelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Travel'], meta: { name: 'Travel' } }
+    /**
+     * Find zero or one Travel that matches the filter.
+     * @param {TravelFindUniqueArgs} args - Arguments to find a Travel
+     * @example
+     * // Get one Travel
+     * const travel = await prisma.travel.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TravelFindUniqueArgs>(args: SelectSubset<T, TravelFindUniqueArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Travel that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TravelFindUniqueOrThrowArgs} args - Arguments to find a Travel
+     * @example
+     * // Get one Travel
+     * const travel = await prisma.travel.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TravelFindUniqueOrThrowArgs>(args: SelectSubset<T, TravelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Travel that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelFindFirstArgs} args - Arguments to find a Travel
+     * @example
+     * // Get one Travel
+     * const travel = await prisma.travel.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TravelFindFirstArgs>(args?: SelectSubset<T, TravelFindFirstArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Travel that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelFindFirstOrThrowArgs} args - Arguments to find a Travel
+     * @example
+     * // Get one Travel
+     * const travel = await prisma.travel.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TravelFindFirstOrThrowArgs>(args?: SelectSubset<T, TravelFindFirstOrThrowArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Travels that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Travels
+     * const travels = await prisma.travel.findMany()
+     * 
+     * // Get first 10 Travels
+     * const travels = await prisma.travel.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const travelWithIdOnly = await prisma.travel.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TravelFindManyArgs>(args?: SelectSubset<T, TravelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Travel.
+     * @param {TravelCreateArgs} args - Arguments to create a Travel.
+     * @example
+     * // Create one Travel
+     * const Travel = await prisma.travel.create({
+     *   data: {
+     *     // ... data to create a Travel
+     *   }
+     * })
+     * 
+     */
+    create<T extends TravelCreateArgs>(args: SelectSubset<T, TravelCreateArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Travels.
+     * @param {TravelCreateManyArgs} args - Arguments to create many Travels.
+     * @example
+     * // Create many Travels
+     * const travel = await prisma.travel.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TravelCreateManyArgs>(args?: SelectSubset<T, TravelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Travels and returns the data saved in the database.
+     * @param {TravelCreateManyAndReturnArgs} args - Arguments to create many Travels.
+     * @example
+     * // Create many Travels
+     * const travel = await prisma.travel.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Travels and only return the `id`
+     * const travelWithIdOnly = await prisma.travel.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TravelCreateManyAndReturnArgs>(args?: SelectSubset<T, TravelCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Travel.
+     * @param {TravelDeleteArgs} args - Arguments to delete one Travel.
+     * @example
+     * // Delete one Travel
+     * const Travel = await prisma.travel.delete({
+     *   where: {
+     *     // ... filter to delete one Travel
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TravelDeleteArgs>(args: SelectSubset<T, TravelDeleteArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Travel.
+     * @param {TravelUpdateArgs} args - Arguments to update one Travel.
+     * @example
+     * // Update one Travel
+     * const travel = await prisma.travel.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TravelUpdateArgs>(args: SelectSubset<T, TravelUpdateArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Travels.
+     * @param {TravelDeleteManyArgs} args - Arguments to filter Travels to delete.
+     * @example
+     * // Delete a few Travels
+     * const { count } = await prisma.travel.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TravelDeleteManyArgs>(args?: SelectSubset<T, TravelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Travels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Travels
+     * const travel = await prisma.travel.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TravelUpdateManyArgs>(args: SelectSubset<T, TravelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Travels and returns the data updated in the database.
+     * @param {TravelUpdateManyAndReturnArgs} args - Arguments to update many Travels.
+     * @example
+     * // Update many Travels
+     * const travel = await prisma.travel.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Travels and only return the `id`
+     * const travelWithIdOnly = await prisma.travel.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TravelUpdateManyAndReturnArgs>(args: SelectSubset<T, TravelUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Travel.
+     * @param {TravelUpsertArgs} args - Arguments to update or create a Travel.
+     * @example
+     * // Update or create a Travel
+     * const travel = await prisma.travel.upsert({
+     *   create: {
+     *     // ... data to create a Travel
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Travel we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TravelUpsertArgs>(args: SelectSubset<T, TravelUpsertArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Travels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCountArgs} args - Arguments to filter Travels to count.
+     * @example
+     * // Count the number of Travels
+     * const count = await prisma.travel.count({
+     *   where: {
+     *     // ... the filter for the Travels we want to count
+     *   }
+     * })
+    **/
+    count<T extends TravelCountArgs>(
+      args?: Subset<T, TravelCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TravelCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Travel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TravelAggregateArgs>(args: Subset<T, TravelAggregateArgs>): Prisma.PrismaPromise<GetTravelAggregateType<T>>
+
+    /**
+     * Group by Travel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TravelGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TravelGroupByArgs['orderBy'] }
+        : { orderBy?: TravelGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TravelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTravelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Travel model
+   */
+  readonly fields: TravelFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Travel.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TravelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Travel model
+   */
+  interface TravelFieldRefs {
+    readonly id: FieldRef<"Travel", 'String'>
+    readonly destination: FieldRef<"Travel", 'String'>
+    readonly startDate: FieldRef<"Travel", 'DateTime'>
+    readonly endDate: FieldRef<"Travel", 'DateTime'>
+    readonly budgetRange: FieldRef<"Travel", 'Int'>
+    readonly travelType: FieldRef<"Travel", 'TravelType'>
+    readonly description: FieldRef<"Travel", 'String'>
+    readonly createdAt: FieldRef<"Travel", 'DateTime'>
+    readonly updatedAt: FieldRef<"Travel", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Travel findUnique
+   */
+  export type TravelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Filter, which Travel to fetch.
+     */
+    where: TravelWhereUniqueInput
+  }
+
+  /**
+   * Travel findUniqueOrThrow
+   */
+  export type TravelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Filter, which Travel to fetch.
+     */
+    where: TravelWhereUniqueInput
+  }
+
+  /**
+   * Travel findFirst
+   */
+  export type TravelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Filter, which Travel to fetch.
+     */
+    where?: TravelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Travels to fetch.
+     */
+    orderBy?: TravelOrderByWithRelationInput | TravelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Travels.
+     */
+    cursor?: TravelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Travels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Travels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Travels.
+     */
+    distinct?: TravelScalarFieldEnum | TravelScalarFieldEnum[]
+  }
+
+  /**
+   * Travel findFirstOrThrow
+   */
+  export type TravelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Filter, which Travel to fetch.
+     */
+    where?: TravelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Travels to fetch.
+     */
+    orderBy?: TravelOrderByWithRelationInput | TravelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Travels.
+     */
+    cursor?: TravelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Travels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Travels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Travels.
+     */
+    distinct?: TravelScalarFieldEnum | TravelScalarFieldEnum[]
+  }
+
+  /**
+   * Travel findMany
+   */
+  export type TravelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Filter, which Travels to fetch.
+     */
+    where?: TravelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Travels to fetch.
+     */
+    orderBy?: TravelOrderByWithRelationInput | TravelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Travels.
+     */
+    cursor?: TravelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Travels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Travels.
+     */
+    skip?: number
+    distinct?: TravelScalarFieldEnum | TravelScalarFieldEnum[]
+  }
+
+  /**
+   * Travel create
+   */
+  export type TravelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Travel.
+     */
+    data: XOR<TravelCreateInput, TravelUncheckedCreateInput>
+  }
+
+  /**
+   * Travel createMany
+   */
+  export type TravelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Travels.
+     */
+    data: TravelCreateManyInput | TravelCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Travel createManyAndReturn
+   */
+  export type TravelCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * The data used to create many Travels.
+     */
+    data: TravelCreateManyInput | TravelCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Travel update
+   */
+  export type TravelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Travel.
+     */
+    data: XOR<TravelUpdateInput, TravelUncheckedUpdateInput>
+    /**
+     * Choose, which Travel to update.
+     */
+    where: TravelWhereUniqueInput
+  }
+
+  /**
+   * Travel updateMany
+   */
+  export type TravelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Travels.
+     */
+    data: XOR<TravelUpdateManyMutationInput, TravelUncheckedUpdateManyInput>
+    /**
+     * Filter which Travels to update
+     */
+    where?: TravelWhereInput
+    /**
+     * Limit how many Travels to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Travel updateManyAndReturn
+   */
+  export type TravelUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * The data used to update Travels.
+     */
+    data: XOR<TravelUpdateManyMutationInput, TravelUncheckedUpdateManyInput>
+    /**
+     * Filter which Travels to update
+     */
+    where?: TravelWhereInput
+    /**
+     * Limit how many Travels to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Travel upsert
+   */
+  export type TravelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Travel to update in case it exists.
+     */
+    where: TravelWhereUniqueInput
+    /**
+     * In case the Travel found by the `where` argument doesn't exist, create a new Travel with this data.
+     */
+    create: XOR<TravelCreateInput, TravelUncheckedCreateInput>
+    /**
+     * In case the Travel was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TravelUpdateInput, TravelUncheckedUpdateInput>
+  }
+
+  /**
+   * Travel delete
+   */
+  export type TravelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Filter which Travel to delete.
+     */
+    where: TravelWhereUniqueInput
+  }
+
+  /**
+   * Travel deleteMany
+   */
+  export type TravelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Travels to delete
+     */
+    where?: TravelWhereInput
+    /**
+     * Limit how many Travels to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Travel without action
+   */
+  export type TravelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1987,6 +3172,21 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const TravelScalarFieldEnum: {
+    id: 'id',
+    destination: 'destination',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    budgetRange: 'budgetRange',
+    travelType: 'travelType',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TravelScalarFieldEnum = (typeof TravelScalarFieldEnum)[keyof typeof TravelScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2071,6 +3271,34 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TravelType'
+   */
+  export type EnumTravelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TravelType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TravelType[]'
+   */
+  export type ListEnumTravelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TravelType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -2162,6 +3390,80 @@ export namespace Prisma {
     profileImage?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type TravelWhereInput = {
+    AND?: TravelWhereInput | TravelWhereInput[]
+    OR?: TravelWhereInput[]
+    NOT?: TravelWhereInput | TravelWhereInput[]
+    id?: StringFilter<"Travel"> | string
+    destination?: StringFilter<"Travel"> | string
+    startDate?: DateTimeFilter<"Travel"> | Date | string
+    endDate?: DateTimeFilter<"Travel"> | Date | string
+    budgetRange?: IntFilter<"Travel"> | number
+    travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
+    description?: StringFilter<"Travel"> | string
+    createdAt?: DateTimeFilter<"Travel"> | Date | string
+    updatedAt?: DateTimeFilter<"Travel"> | Date | string
+  }
+
+  export type TravelOrderByWithRelationInput = {
+    id?: SortOrder
+    destination?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budgetRange?: SortOrder
+    travelType?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TravelWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TravelWhereInput | TravelWhereInput[]
+    OR?: TravelWhereInput[]
+    NOT?: TravelWhereInput | TravelWhereInput[]
+    destination?: StringFilter<"Travel"> | string
+    startDate?: DateTimeFilter<"Travel"> | Date | string
+    endDate?: DateTimeFilter<"Travel"> | Date | string
+    budgetRange?: IntFilter<"Travel"> | number
+    travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
+    description?: StringFilter<"Travel"> | string
+    createdAt?: DateTimeFilter<"Travel"> | Date | string
+    updatedAt?: DateTimeFilter<"Travel"> | Date | string
+  }, "id">
+
+  export type TravelOrderByWithAggregationInput = {
+    id?: SortOrder
+    destination?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budgetRange?: SortOrder
+    travelType?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TravelCountOrderByAggregateInput
+    _avg?: TravelAvgOrderByAggregateInput
+    _max?: TravelMaxOrderByAggregateInput
+    _min?: TravelMinOrderByAggregateInput
+    _sum?: TravelSumOrderByAggregateInput
+  }
+
+  export type TravelScalarWhereWithAggregatesInput = {
+    AND?: TravelScalarWhereWithAggregatesInput | TravelScalarWhereWithAggregatesInput[]
+    OR?: TravelScalarWhereWithAggregatesInput[]
+    NOT?: TravelScalarWhereWithAggregatesInput | TravelScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Travel"> | string
+    destination?: StringWithAggregatesFilter<"Travel"> | string
+    startDate?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
+    budgetRange?: IntWithAggregatesFilter<"Travel"> | number
+    travelType?: EnumTravelTypeWithAggregatesFilter<"Travel"> | $Enums.TravelType
+    description?: StringWithAggregatesFilter<"Travel"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -2265,6 +3567,90 @@ export namespace Prisma {
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelCreateInput = {
+    id?: string
+    destination: string
+    startDate: Date | string
+    endDate: Date | string
+    budgetRange: number
+    travelType: $Enums.TravelType
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TravelUncheckedCreateInput = {
+    id?: string
+    destination: string
+    startDate: Date | string
+    endDate: Date | string
+    budgetRange: number
+    travelType: $Enums.TravelType
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TravelUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelCreateManyInput = {
+    id?: string
+    destination: string
+    startDate: Date | string
+    endDate: Date | string
+    budgetRange: number
+    travelType: $Enums.TravelType
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TravelUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2431,6 +3817,94 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type EnumTravelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TravelType | EnumTravelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTravelTypeFilter<$PrismaModel> | $Enums.TravelType
+  }
+
+  export type TravelCountOrderByAggregateInput = {
+    id?: SortOrder
+    destination?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budgetRange?: SortOrder
+    travelType?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TravelAvgOrderByAggregateInput = {
+    budgetRange?: SortOrder
+  }
+
+  export type TravelMaxOrderByAggregateInput = {
+    id?: SortOrder
+    destination?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budgetRange?: SortOrder
+    travelType?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TravelMinOrderByAggregateInput = {
+    id?: SortOrder
+    destination?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budgetRange?: SortOrder
+    travelType?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TravelSumOrderByAggregateInput = {
+    budgetRange?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumTravelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TravelType | EnumTravelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTravelTypeWithAggregatesFilter<$PrismaModel> | $Enums.TravelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTravelTypeFilter<$PrismaModel>
+    _max?: NestedEnumTravelTypeFilter<$PrismaModel>
+  }
+
   export type UserCreatetravelInterestInput = {
     set: string[]
   }
@@ -2463,6 +3937,18 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumTravelTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TravelType
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2589,6 +4075,50 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTravelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TravelType | EnumTravelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTravelTypeFilter<$PrismaModel> | $Enums.TravelType
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumTravelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TravelType | EnumTravelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TravelType[] | ListEnumTravelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTravelTypeWithAggregatesFilter<$PrismaModel> | $Enums.TravelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTravelTypeFilter<$PrismaModel>
+    _max?: NestedEnumTravelTypeFilter<$PrismaModel>
   }
 
 

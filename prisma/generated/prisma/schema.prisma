@@ -22,6 +22,24 @@ model User {
   updatedAt        DateTime @updatedAt
 }
 
+model Travel {
+  id          String     @id @default(uuid())
+  destination String
+  startDate   DateTime
+  endDate     DateTime
+  budgetRange Int
+  travelType  TravelType
+  description String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+enum TravelType {
+  SOLO
+  FAMILY
+  FRIENDS
+}
+
 enum Role {
   ADMIN
   USER

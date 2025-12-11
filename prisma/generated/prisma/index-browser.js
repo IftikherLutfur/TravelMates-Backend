@@ -135,6 +135,18 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TravelScalarFieldEnum = {
+  id: 'id',
+  destination: 'destination',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  budgetRange: 'budgetRange',
+  travelType: 'travelType',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -154,8 +166,15 @@ exports.Role = exports.$Enums.Role = {
   USER: 'USER'
 };
 
+exports.TravelType = exports.$Enums.TravelType = {
+  SOLO: 'SOLO',
+  FAMILY: 'FAMILY',
+  FRIENDS: 'FRIENDS'
+};
+
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Travel: 'Travel'
 };
 
 /**
