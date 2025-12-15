@@ -1,6 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 import { Role } from "../../prisma/generated/prisma";
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: any;
+        }
+    }
+}
 
 export default function auth(requiredRole?: Role) {
     return (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +20,7 @@ export default function auth(requiredRole?: Role) {
             const decode = jwt.verify(
                 token,
                 process.env.JWT_SECRET as string
-            )
+            ) as JwtPayload
 
             req.user = decode;
 
