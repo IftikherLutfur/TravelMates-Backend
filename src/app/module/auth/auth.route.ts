@@ -4,4 +4,4 @@ const auth = express.Router()
 
 auth.post("/login", authController.login)
 auth.post("/logout", authController.logout)
-export const authRouter = auth;
+export const authRouter = auth; 

@@ -9,7 +9,13 @@ import { paymentRoute } from "./app/module/payment/payment.route"
 dotenv.config()
 const app: Application = express()
 
-app.use(cors())
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true, // 👈 important for cookies
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    })
+);
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRouter)

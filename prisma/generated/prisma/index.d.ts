@@ -1075,10 +1075,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     payment: number
+    travel: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | UserCountOutputTypeCountPaymentArgs
+    travel?: boolean | UserCountOutputTypeCountTravelArgs
   }
 
   // Custom InputTypes
@@ -1097,6 +1099,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTravelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TravelWhereInput
   }
 
 
@@ -1121,6 +1130,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     password: string | null
     bio: string | null
+    isPremium: boolean | null
     currentLocation: string | null
     profileImage: string | null
     createdAt: Date | null
@@ -1134,6 +1144,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     password: string | null
     bio: string | null
+    isPremium: boolean | null
     currentLocation: string | null
     profileImage: string | null
     createdAt: Date | null
@@ -1147,6 +1158,7 @@ export namespace Prisma {
     role: number
     password: number
     bio: number
+    isPremium: number
     travelInterest: number
     visitedCountries: number
     currentLocation: number
@@ -1164,6 +1176,7 @@ export namespace Prisma {
     role?: true
     password?: true
     bio?: true
+    isPremium?: true
     currentLocation?: true
     profileImage?: true
     createdAt?: true
@@ -1177,6 +1190,7 @@ export namespace Prisma {
     role?: true
     password?: true
     bio?: true
+    isPremium?: true
     currentLocation?: true
     profileImage?: true
     createdAt?: true
@@ -1190,6 +1204,7 @@ export namespace Prisma {
     role?: true
     password?: true
     bio?: true
+    isPremium?: true
     travelInterest?: true
     visitedCountries?: true
     currentLocation?: true
@@ -1278,6 +1293,7 @@ export namespace Prisma {
     role: $Enums.Role
     password: string
     bio: string | null
+    isPremium: boolean
     travelInterest: string[]
     visitedCountries: string[]
     currentLocation: string | null
@@ -1310,6 +1326,7 @@ export namespace Prisma {
     role?: boolean
     password?: boolean
     bio?: boolean
+    isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
     currentLocation?: boolean
@@ -1317,6 +1334,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     payment?: boolean | User$paymentArgs<ExtArgs>
+    travel?: boolean | User$travelArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1327,6 +1345,7 @@ export namespace Prisma {
     role?: boolean
     password?: boolean
     bio?: boolean
+    isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
     currentLocation?: boolean
@@ -1342,6 +1361,7 @@ export namespace Prisma {
     role?: boolean
     password?: boolean
     bio?: boolean
+    isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
     currentLocation?: boolean
@@ -1357,6 +1377,7 @@ export namespace Prisma {
     role?: boolean
     password?: boolean
     bio?: boolean
+    isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
     currentLocation?: boolean
@@ -1365,9 +1386,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "role" | "password" | "bio" | "travelInterest" | "visitedCountries" | "currentLocation" | "profileImage" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "role" | "password" | "bio" | "isPremium" | "travelInterest" | "visitedCountries" | "currentLocation" | "profileImage" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | User$paymentArgs<ExtArgs>
+    travel?: boolean | User$travelArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1377,6 +1399,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       payment: Prisma.$PaymentPayload<ExtArgs>[]
+      travel: Prisma.$TravelPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1385,6 +1408,7 @@ export namespace Prisma {
       role: $Enums.Role
       password: string
       bio: string | null
+      isPremium: boolean
       travelInterest: string[]
       visitedCountries: string[]
       currentLocation: string | null
@@ -1786,6 +1810,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     payment<T extends User$paymentArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    travel<T extends User$travelArgs<ExtArgs> = {}>(args?: Subset<T, User$travelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1821,6 +1846,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'Role'>
     readonly password: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
+    readonly isPremium: FieldRef<"User", 'Boolean'>
     readonly travelInterest: FieldRef<"User", 'String[]'>
     readonly visitedCountries: FieldRef<"User", 'String[]'>
     readonly currentLocation: FieldRef<"User", 'String'>
@@ -2239,6 +2265,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.travel
+   */
+  export type User$travelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Travel
+     */
+    select?: TravelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Travel
+     */
+    omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
+    where?: TravelWhereInput
+    orderBy?: TravelOrderByWithRelationInput | TravelOrderByWithRelationInput[]
+    cursor?: TravelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TravelScalarFieldEnum | TravelScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2280,11 +2330,12 @@ export namespace Prisma {
   export type TravelMinAggregateOutputType = {
     id: string | null
     destination: string | null
+    description: string | null
     startDate: Date | null
     endDate: Date | null
     budgetRange: number | null
     travelType: $Enums.TravelType | null
-    description: string | null
+    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2292,11 +2343,12 @@ export namespace Prisma {
   export type TravelMaxAggregateOutputType = {
     id: string | null
     destination: string | null
+    description: string | null
     startDate: Date | null
     endDate: Date | null
     budgetRange: number | null
     travelType: $Enums.TravelType | null
-    description: string | null
+    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2304,11 +2356,12 @@ export namespace Prisma {
   export type TravelCountAggregateOutputType = {
     id: number
     destination: number
+    description: number
     startDate: number
     endDate: number
     budgetRange: number
     travelType: number
-    description: number
+    userId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2326,11 +2379,12 @@ export namespace Prisma {
   export type TravelMinAggregateInputType = {
     id?: true
     destination?: true
+    description?: true
     startDate?: true
     endDate?: true
     budgetRange?: true
     travelType?: true
-    description?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2338,11 +2392,12 @@ export namespace Prisma {
   export type TravelMaxAggregateInputType = {
     id?: true
     destination?: true
+    description?: true
     startDate?: true
     endDate?: true
     budgetRange?: true
     travelType?: true
-    description?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2350,11 +2405,12 @@ export namespace Prisma {
   export type TravelCountAggregateInputType = {
     id?: true
     destination?: true
+    description?: true
     startDate?: true
     endDate?: true
     budgetRange?: true
     travelType?: true
-    description?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2449,11 +2505,12 @@ export namespace Prisma {
   export type TravelGroupByOutputType = {
     id: string
     destination: string
+    description: string
     startDate: Date
     endDate: Date
     budgetRange: number
     travelType: $Enums.TravelType
-    description: string
+    userId: string
     createdAt: Date
     updatedAt: Date
     _count: TravelCountAggregateOutputType | null
@@ -2480,64 +2537,83 @@ export namespace Prisma {
   export type TravelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     destination?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    description?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
   export type TravelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     destination?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    description?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
   export type TravelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     destination?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    description?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
   export type TravelSelectScalar = {
     id?: boolean
     destination?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    description?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destination" | "startDate" | "endDate" | "budgetRange" | "travelType" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
+  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destination" | "description" | "startDate" | "endDate" | "budgetRange" | "travelType" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
+  export type TravelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TravelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TravelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $TravelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Travel"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       destination: string
+      description: string
       startDate: Date
       endDate: Date
       budgetRange: number
       travelType: $Enums.TravelType
-      description: string
+      userId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["travel"]>
@@ -2934,6 +3010,7 @@ export namespace Prisma {
    */
   export interface Prisma__TravelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2965,11 +3042,12 @@ export namespace Prisma {
   interface TravelFieldRefs {
     readonly id: FieldRef<"Travel", 'String'>
     readonly destination: FieldRef<"Travel", 'String'>
+    readonly description: FieldRef<"Travel", 'String'>
     readonly startDate: FieldRef<"Travel", 'DateTime'>
     readonly endDate: FieldRef<"Travel", 'DateTime'>
     readonly budgetRange: FieldRef<"Travel", 'Int'>
     readonly travelType: FieldRef<"Travel", 'TravelType'>
-    readonly description: FieldRef<"Travel", 'String'>
+    readonly userId: FieldRef<"Travel", 'String'>
     readonly createdAt: FieldRef<"Travel", 'DateTime'>
     readonly updatedAt: FieldRef<"Travel", 'DateTime'>
   }
@@ -2989,6 +3067,10 @@ export namespace Prisma {
      */
     omit?: TravelOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
+    /**
      * Filter, which Travel to fetch.
      */
     where: TravelWhereUniqueInput
@@ -3007,6 +3089,10 @@ export namespace Prisma {
      */
     omit?: TravelOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
+    /**
      * Filter, which Travel to fetch.
      */
     where: TravelWhereUniqueInput
@@ -3024,6 +3110,10 @@ export namespace Prisma {
      * Omit specific fields from the Travel
      */
     omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
     /**
      * Filter, which Travel to fetch.
      */
@@ -3073,6 +3163,10 @@ export namespace Prisma {
      */
     omit?: TravelOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
+    /**
      * Filter, which Travel to fetch.
      */
     where?: TravelWhereInput
@@ -3121,6 +3215,10 @@ export namespace Prisma {
      */
     omit?: TravelOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
+    /**
      * Filter, which Travels to fetch.
      */
     where?: TravelWhereInput
@@ -3164,6 +3262,10 @@ export namespace Prisma {
      */
     omit?: TravelOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
+    /**
      * The data needed to create a Travel.
      */
     data: XOR<TravelCreateInput, TravelUncheckedCreateInput>
@@ -3197,6 +3299,10 @@ export namespace Prisma {
      */
     data: TravelCreateManyInput | TravelCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3211,6 +3317,10 @@ export namespace Prisma {
      * Omit specific fields from the Travel
      */
     omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
     /**
      * The data needed to update a Travel.
      */
@@ -3263,6 +3373,10 @@ export namespace Prisma {
      * Limit how many Travels to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3277,6 +3391,10 @@ export namespace Prisma {
      * Omit specific fields from the Travel
      */
     omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
     /**
      * The filter to search for the Travel to update in case it exists.
      */
@@ -3303,6 +3421,10 @@ export namespace Prisma {
      * Omit specific fields from the Travel
      */
     omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
     /**
      * Filter which Travel to delete.
      */
@@ -3335,6 +3457,10 @@ export namespace Prisma {
      * Omit specific fields from the Travel
      */
     omit?: TravelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelInclude<ExtArgs> | null
   }
 
 
@@ -3388,7 +3514,6 @@ export namespace Prisma {
     amount: number
     currency: number
     status: number
-    rawResponse: number
     createdAt: number
     _all: number
   }
@@ -3432,7 +3557,6 @@ export namespace Prisma {
     amount?: true
     currency?: true
     status?: true
-    rawResponse?: true
     createdAt?: true
     _all?: true
   }
@@ -3531,7 +3655,6 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonValue
     createdAt: Date
     _count: PaymentCountAggregateOutputType | null
     _avg: PaymentAvgAggregateOutputType | null
@@ -3562,7 +3685,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    rawResponse?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
@@ -3575,7 +3697,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    rawResponse?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
@@ -3588,7 +3709,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    rawResponse?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
@@ -3601,11 +3721,10 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    rawResponse?: boolean
     createdAt?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tranId" | "valId" | "amount" | "currency" | "status" | "rawResponse" | "createdAt", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tranId" | "valId" | "amount" | "currency" | "status" | "createdAt", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3629,7 +3748,6 @@ export namespace Prisma {
       amount: number
       currency: string
       status: string
-      rawResponse: Prisma.JsonValue
       createdAt: Date
     }, ExtArgs["result"]["payment"]>
     composites: {}
@@ -4062,7 +4180,6 @@ export namespace Prisma {
     readonly amount: FieldRef<"Payment", 'Float'>
     readonly currency: FieldRef<"Payment", 'String'>
     readonly status: FieldRef<"Payment", 'String'>
-    readonly rawResponse: FieldRef<"Payment", 'Json'>
     readonly createdAt: FieldRef<"Payment", 'DateTime'>
   }
     
@@ -4499,6 +4616,7 @@ export namespace Prisma {
     role: 'role',
     password: 'password',
     bio: 'bio',
+    isPremium: 'isPremium',
     travelInterest: 'travelInterest',
     visitedCountries: 'visitedCountries',
     currentLocation: 'currentLocation',
@@ -4513,11 +4631,12 @@ export namespace Prisma {
   export const TravelScalarFieldEnum: {
     id: 'id',
     destination: 'destination',
+    description: 'description',
     startDate: 'startDate',
     endDate: 'endDate',
     budgetRange: 'budgetRange',
     travelType: 'travelType',
-    description: 'description',
+    userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4533,7 +4652,6 @@ export namespace Prisma {
     amount: 'amount',
     currency: 'currency',
     status: 'status',
-    rawResponse: 'rawResponse',
     createdAt: 'createdAt'
   };
 
@@ -4546,13 +4664,6 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -4569,15 +4680,6 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -4610,6 +4712,13 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4667,20 +4776,6 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
   /**
    * Deep Input Types
    */
@@ -4696,6 +4791,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     password?: StringFilter<"User"> | string
     bio?: StringNullableFilter<"User"> | string | null
+    isPremium?: BoolFilter<"User"> | boolean
     travelInterest?: StringNullableListFilter<"User">
     visitedCountries?: StringNullableListFilter<"User">
     currentLocation?: StringNullableFilter<"User"> | string | null
@@ -4703,6 +4799,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     payment?: PaymentListRelationFilter
+    travel?: TravelListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4712,6 +4809,7 @@ export namespace Prisma {
     role?: SortOrder
     password?: SortOrder
     bio?: SortOrderInput | SortOrder
+    isPremium?: SortOrder
     travelInterest?: SortOrder
     visitedCountries?: SortOrder
     currentLocation?: SortOrderInput | SortOrder
@@ -4719,6 +4817,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     payment?: PaymentOrderByRelationAggregateInput
+    travel?: TravelOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4731,6 +4830,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     password?: StringFilter<"User"> | string
     bio?: StringNullableFilter<"User"> | string | null
+    isPremium?: BoolFilter<"User"> | boolean
     travelInterest?: StringNullableListFilter<"User">
     visitedCountries?: StringNullableListFilter<"User">
     currentLocation?: StringNullableFilter<"User"> | string | null
@@ -4738,6 +4838,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     payment?: PaymentListRelationFilter
+    travel?: TravelListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -4747,6 +4848,7 @@ export namespace Prisma {
     role?: SortOrder
     password?: SortOrder
     bio?: SortOrderInput | SortOrder
+    isPremium?: SortOrder
     travelInterest?: SortOrder
     visitedCountries?: SortOrder
     currentLocation?: SortOrderInput | SortOrder
@@ -4768,6 +4870,7 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     password?: StringWithAggregatesFilter<"User"> | string
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isPremium?: BoolWithAggregatesFilter<"User"> | boolean
     travelInterest?: StringNullableListFilter<"User">
     visitedCountries?: StringNullableListFilter<"User">
     currentLocation?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -4782,25 +4885,29 @@ export namespace Prisma {
     NOT?: TravelWhereInput | TravelWhereInput[]
     id?: StringFilter<"Travel"> | string
     destination?: StringFilter<"Travel"> | string
+    description?: StringFilter<"Travel"> | string
     startDate?: DateTimeFilter<"Travel"> | Date | string
     endDate?: DateTimeFilter<"Travel"> | Date | string
     budgetRange?: IntFilter<"Travel"> | number
     travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
-    description?: StringFilter<"Travel"> | string
+    userId?: StringFilter<"Travel"> | string
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type TravelOrderByWithRelationInput = {
     id?: SortOrder
     destination?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    description?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type TravelWhereUniqueInput = Prisma.AtLeast<{
@@ -4809,23 +4916,26 @@ export namespace Prisma {
     OR?: TravelWhereInput[]
     NOT?: TravelWhereInput | TravelWhereInput[]
     destination?: StringFilter<"Travel"> | string
+    description?: StringFilter<"Travel"> | string
     startDate?: DateTimeFilter<"Travel"> | Date | string
     endDate?: DateTimeFilter<"Travel"> | Date | string
     budgetRange?: IntFilter<"Travel"> | number
     travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
-    description?: StringFilter<"Travel"> | string
+    userId?: StringFilter<"Travel"> | string
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type TravelOrderByWithAggregationInput = {
     id?: SortOrder
     destination?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    description?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TravelCountOrderByAggregateInput
@@ -4841,11 +4951,12 @@ export namespace Prisma {
     NOT?: TravelScalarWhereWithAggregatesInput | TravelScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Travel"> | string
     destination?: StringWithAggregatesFilter<"Travel"> | string
+    description?: StringWithAggregatesFilter<"Travel"> | string
     startDate?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     budgetRange?: IntWithAggregatesFilter<"Travel"> | number
     travelType?: EnumTravelTypeWithAggregatesFilter<"Travel"> | $Enums.TravelType
-    description?: StringWithAggregatesFilter<"Travel"> | string
+    userId?: StringWithAggregatesFilter<"Travel"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
   }
@@ -4861,7 +4972,6 @@ export namespace Prisma {
     amount?: FloatFilter<"Payment"> | number
     currency?: StringFilter<"Payment"> | string
     status?: StringFilter<"Payment"> | string
-    rawResponse?: JsonFilter<"Payment">
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -4874,7 +4984,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    rawResponse?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -4890,7 +4999,6 @@ export namespace Prisma {
     amount?: FloatFilter<"Payment"> | number
     currency?: StringFilter<"Payment"> | string
     status?: StringFilter<"Payment"> | string
-    rawResponse?: JsonFilter<"Payment">
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "tranId" | "valId">
@@ -4903,7 +5011,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    rawResponse?: SortOrder
     createdAt?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
     _avg?: PaymentAvgOrderByAggregateInput
@@ -4923,7 +5030,6 @@ export namespace Prisma {
     amount?: FloatWithAggregatesFilter<"Payment"> | number
     currency?: StringWithAggregatesFilter<"Payment"> | string
     status?: StringWithAggregatesFilter<"Payment"> | string
-    rawResponse?: JsonWithAggregatesFilter<"Payment">
     createdAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
   }
 
@@ -4934,6 +5040,7 @@ export namespace Prisma {
     role?: $Enums.Role
     password: string
     bio?: string | null
+    isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
     currentLocation?: string | null
@@ -4941,6 +5048,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentCreateNestedManyWithoutUserInput
+    travel?: TravelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4950,6 +5058,7 @@ export namespace Prisma {
     role?: $Enums.Role
     password: string
     bio?: string | null
+    isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
     currentLocation?: string | null
@@ -4957,6 +5066,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    travel?: TravelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4966,6 +5076,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     password?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4973,6 +5084,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateManyWithoutUserNestedInput
+    travel?: TravelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -4982,6 +5094,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     password?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4989,6 +5102,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -4998,6 +5112,7 @@ export namespace Prisma {
     role?: $Enums.Role
     password: string
     bio?: string | null
+    isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
     currentLocation?: string | null
@@ -5013,6 +5128,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     password?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5028,6 +5144,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     password?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5039,23 +5156,25 @@ export namespace Prisma {
   export type TravelCreateInput = {
     id?: string
     destination: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     budgetRange: number
     travelType: $Enums.TravelType
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTravelInput
   }
 
   export type TravelUncheckedCreateInput = {
     id?: string
     destination: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     budgetRange: number
     travelType: $Enums.TravelType
-    description: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5063,23 +5182,25 @@ export namespace Prisma {
   export type TravelUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     budgetRange?: IntFieldUpdateOperationsInput | number
     travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTravelNestedInput
   }
 
   export type TravelUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     budgetRange?: IntFieldUpdateOperationsInput | number
     travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
-    description?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5087,11 +5208,12 @@ export namespace Prisma {
   export type TravelCreateManyInput = {
     id?: string
     destination: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     budgetRange: number
     travelType: $Enums.TravelType
-    description: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5099,11 +5221,11 @@ export namespace Prisma {
   export type TravelUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     budgetRange?: IntFieldUpdateOperationsInput | number
     travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5111,11 +5233,12 @@ export namespace Prisma {
   export type TravelUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     budgetRange?: IntFieldUpdateOperationsInput | number
     travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
-    description?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5127,7 +5250,6 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutPaymentInput
   }
@@ -5140,7 +5262,6 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -5151,7 +5272,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPaymentNestedInput
   }
@@ -5164,7 +5284,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5176,7 +5295,6 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -5187,7 +5305,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5199,7 +5316,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5240,6 +5356,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -5265,12 +5386,22 @@ export namespace Prisma {
     none?: PaymentWhereInput
   }
 
+  export type TravelListRelationFilter = {
+    every?: TravelWhereInput
+    some?: TravelWhereInput
+    none?: TravelWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type PaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TravelOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5281,6 +5412,7 @@ export namespace Prisma {
     role?: SortOrder
     password?: SortOrder
     bio?: SortOrder
+    isPremium?: SortOrder
     travelInterest?: SortOrder
     visitedCountries?: SortOrder
     currentLocation?: SortOrder
@@ -5296,6 +5428,7 @@ export namespace Prisma {
     role?: SortOrder
     password?: SortOrder
     bio?: SortOrder
+    isPremium?: SortOrder
     currentLocation?: SortOrder
     profileImage?: SortOrder
     createdAt?: SortOrder
@@ -5309,6 +5442,7 @@ export namespace Prisma {
     role?: SortOrder
     password?: SortOrder
     bio?: SortOrder
+    isPremium?: SortOrder
     currentLocation?: SortOrder
     profileImage?: SortOrder
     createdAt?: SortOrder
@@ -5361,6 +5495,14 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5393,14 +5535,20 @@ export namespace Prisma {
     not?: NestedEnumTravelTypeFilter<$PrismaModel> | $Enums.TravelType
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type TravelCountOrderByAggregateInput = {
     id?: SortOrder
     destination?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    description?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5412,11 +5560,12 @@ export namespace Prisma {
   export type TravelMaxOrderByAggregateInput = {
     id?: SortOrder
     destination?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    description?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5424,11 +5573,12 @@ export namespace Prisma {
   export type TravelMinOrderByAggregateInput = {
     id?: SortOrder
     destination?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    description?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5473,34 +5623,6 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
 
   export type PaymentCountOrderByAggregateInput = {
     id?: SortOrder
@@ -5510,7 +5632,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    rawResponse?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5559,32 +5680,6 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
 
   export type UserCreatetravelInterestInput = {
     set: string[]
@@ -5601,11 +5696,25 @@ export namespace Prisma {
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
+  export type TravelCreateNestedManyWithoutUserInput = {
+    create?: XOR<TravelCreateWithoutUserInput, TravelUncheckedCreateWithoutUserInput> | TravelCreateWithoutUserInput[] | TravelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TravelCreateOrConnectWithoutUserInput | TravelCreateOrConnectWithoutUserInput[]
+    createMany?: TravelCreateManyUserInputEnvelope
+    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+  }
+
   export type PaymentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PaymentCreateWithoutUserInput, PaymentUncheckedCreateWithoutUserInput> | PaymentCreateWithoutUserInput[] | PaymentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PaymentCreateOrConnectWithoutUserInput | PaymentCreateOrConnectWithoutUserInput[]
     createMany?: PaymentCreateManyUserInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type TravelUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TravelCreateWithoutUserInput, TravelUncheckedCreateWithoutUserInput> | TravelCreateWithoutUserInput[] | TravelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TravelCreateOrConnectWithoutUserInput | TravelCreateOrConnectWithoutUserInput[]
+    createMany?: TravelCreateManyUserInputEnvelope
+    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5618,6 +5727,10 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserUpdatetravelInterestInput = {
@@ -5648,6 +5761,20 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type TravelUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TravelCreateWithoutUserInput, TravelUncheckedCreateWithoutUserInput> | TravelCreateWithoutUserInput[] | TravelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TravelCreateOrConnectWithoutUserInput | TravelCreateOrConnectWithoutUserInput[]
+    upsert?: TravelUpsertWithWhereUniqueWithoutUserInput | TravelUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TravelCreateManyUserInputEnvelope
+    set?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    disconnect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    delete?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    update?: TravelUpdateWithWhereUniqueWithoutUserInput | TravelUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TravelUpdateManyWithWhereWithoutUserInput | TravelUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TravelScalarWhereInput | TravelScalarWhereInput[]
+  }
+
   export type PaymentUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PaymentCreateWithoutUserInput, PaymentUncheckedCreateWithoutUserInput> | PaymentCreateWithoutUserInput[] | PaymentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PaymentCreateOrConnectWithoutUserInput | PaymentCreateOrConnectWithoutUserInput[]
@@ -5662,6 +5789,26 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type TravelUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TravelCreateWithoutUserInput, TravelUncheckedCreateWithoutUserInput> | TravelCreateWithoutUserInput[] | TravelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TravelCreateOrConnectWithoutUserInput | TravelCreateOrConnectWithoutUserInput[]
+    upsert?: TravelUpsertWithWhereUniqueWithoutUserInput | TravelUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TravelCreateManyUserInputEnvelope
+    set?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    disconnect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    delete?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+    update?: TravelUpdateWithWhereUniqueWithoutUserInput | TravelUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TravelUpdateManyWithWhereWithoutUserInput | TravelUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TravelScalarWhereInput | TravelScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutTravelInput = {
+    create?: XOR<UserCreateWithoutTravelInput, UserUncheckedCreateWithoutTravelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTravelInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -5672,6 +5819,14 @@ export namespace Prisma {
 
   export type EnumTravelTypeFieldUpdateOperationsInput = {
     set?: $Enums.TravelType
+  }
+
+  export type UserUpdateOneRequiredWithoutTravelNestedInput = {
+    create?: XOR<UserCreateWithoutTravelInput, UserUncheckedCreateWithoutTravelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTravelInput
+    upsert?: UserUpsertWithoutTravelInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTravelInput, UserUpdateWithoutTravelInput>, UserUncheckedUpdateWithoutTravelInput>
   }
 
   export type UserCreateNestedOneWithoutPaymentInput = {
@@ -5729,6 +5884,11 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -5808,6 +5968,14 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5881,29 +6049,6 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type PaymentCreateWithoutUserInput = {
     id?: string
@@ -5912,7 +6057,6 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -5923,7 +6067,6 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -5934,6 +6077,40 @@ export namespace Prisma {
 
   export type PaymentCreateManyUserInputEnvelope = {
     data: PaymentCreateManyUserInput | PaymentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TravelCreateWithoutUserInput = {
+    id?: string
+    destination: string
+    description: string
+    startDate: Date | string
+    endDate: Date | string
+    budgetRange: number
+    travelType: $Enums.TravelType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TravelUncheckedCreateWithoutUserInput = {
+    id?: string
+    destination: string
+    description: string
+    startDate: Date | string
+    endDate: Date | string
+    budgetRange: number
+    travelType: $Enums.TravelType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TravelCreateOrConnectWithoutUserInput = {
+    where: TravelWhereUniqueInput
+    create: XOR<TravelCreateWithoutUserInput, TravelUncheckedCreateWithoutUserInput>
+  }
+
+  export type TravelCreateManyUserInputEnvelope = {
+    data: TravelCreateManyUserInput | TravelCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -5964,8 +6141,123 @@ export namespace Prisma {
     amount?: FloatFilter<"Payment"> | number
     currency?: StringFilter<"Payment"> | string
     status?: StringFilter<"Payment"> | string
-    rawResponse?: JsonFilter<"Payment">
     createdAt?: DateTimeFilter<"Payment"> | Date | string
+  }
+
+  export type TravelUpsertWithWhereUniqueWithoutUserInput = {
+    where: TravelWhereUniqueInput
+    update: XOR<TravelUpdateWithoutUserInput, TravelUncheckedUpdateWithoutUserInput>
+    create: XOR<TravelCreateWithoutUserInput, TravelUncheckedCreateWithoutUserInput>
+  }
+
+  export type TravelUpdateWithWhereUniqueWithoutUserInput = {
+    where: TravelWhereUniqueInput
+    data: XOR<TravelUpdateWithoutUserInput, TravelUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TravelUpdateManyWithWhereWithoutUserInput = {
+    where: TravelScalarWhereInput
+    data: XOR<TravelUpdateManyMutationInput, TravelUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TravelScalarWhereInput = {
+    AND?: TravelScalarWhereInput | TravelScalarWhereInput[]
+    OR?: TravelScalarWhereInput[]
+    NOT?: TravelScalarWhereInput | TravelScalarWhereInput[]
+    id?: StringFilter<"Travel"> | string
+    destination?: StringFilter<"Travel"> | string
+    description?: StringFilter<"Travel"> | string
+    startDate?: DateTimeFilter<"Travel"> | Date | string
+    endDate?: DateTimeFilter<"Travel"> | Date | string
+    budgetRange?: IntFilter<"Travel"> | number
+    travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
+    userId?: StringFilter<"Travel"> | string
+    createdAt?: DateTimeFilter<"Travel"> | Date | string
+    updatedAt?: DateTimeFilter<"Travel"> | Date | string
+  }
+
+  export type UserCreateWithoutTravelInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.Role
+    password: string
+    bio?: string | null
+    isPremium?: boolean
+    travelInterest?: UserCreatetravelInterestInput | string[]
+    visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    currentLocation?: string | null
+    profileImage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: PaymentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTravelInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.Role
+    password: string
+    bio?: string | null
+    isPremium?: boolean
+    travelInterest?: UserCreatetravelInterestInput | string[]
+    visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    currentLocation?: string | null
+    profileImage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: PaymentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTravelInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTravelInput, UserUncheckedCreateWithoutTravelInput>
+  }
+
+  export type UserUpsertWithoutTravelInput = {
+    update: XOR<UserUpdateWithoutTravelInput, UserUncheckedUpdateWithoutTravelInput>
+    create: XOR<UserCreateWithoutTravelInput, UserUncheckedCreateWithoutTravelInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTravelInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTravelInput, UserUncheckedUpdateWithoutTravelInput>
+  }
+
+  export type UserUpdateWithoutTravelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    password?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    travelInterest?: UserUpdatetravelInterestInput | string[]
+    visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTravelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    password?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    travelInterest?: UserUpdatetravelInterestInput | string[]
+    visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPaymentInput = {
@@ -5975,12 +6267,14 @@ export namespace Prisma {
     role?: $Enums.Role
     password: string
     bio?: string | null
+    isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    travel?: TravelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentInput = {
@@ -5990,12 +6284,14 @@ export namespace Prisma {
     role?: $Enums.Role
     password: string
     bio?: string | null
+    isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    travel?: TravelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentInput = {
@@ -6021,12 +6317,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     password?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    travel?: TravelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentInput = {
@@ -6036,12 +6334,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     password?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PaymentCreateManyUserInput = {
@@ -6051,8 +6351,19 @@ export namespace Prisma {
     amount: number
     currency: string
     status: string
-    rawResponse: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+  }
+
+  export type TravelCreateManyUserInput = {
+    id?: string
+    destination: string
+    description: string
+    startDate: Date | string
+    endDate: Date | string
+    budgetRange: number
+    travelType: $Enums.TravelType
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PaymentUpdateWithoutUserInput = {
@@ -6062,7 +6373,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6073,7 +6383,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6084,8 +6393,43 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     currency?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    rawResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    budgetRange?: IntFieldUpdateOperationsInput | number
+    travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

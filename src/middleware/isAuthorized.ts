@@ -10,29 +10,42 @@ declare global {
     }
 }
 
-export default function auth(requiredRole?: Role) {
+export default function auth(...requiredRoles: Role[]) {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
-            const token = req.headers.authorization;
-            if (!token) {
-                return res.status(200).json({ message: "Unauthorized user" })
+            const authHeader = req.headers.authorization;
+
+            if (!authHeader) {
+                return res.status(401).json({ message: "Unauthorized user" });
             }
-            const decode = jwt.verify(
+
+            const token = authHeader.split(" ")[1]; // Bearer TOKEN
+
+            if (!token) {
+                return res.status(401).json({ message: "Unauthorized user" });
+            }
+
+            const decoded = jwt.verify(
                 token,
                 process.env.JWT_SECRET as string
-            ) as JwtPayload
+            ) as JwtPayload;
 
-            req.user = decode;
+            req.user = decoded;
 
-            if (requiredRole && decode.role != requiredRole) {
-                return res.status(403).json({ message: "Forbidden: access denied" })
+            if (
+                requiredRoles.length > 0 &&
+                !requiredRoles.includes(decoded.role)
+            ) {
+                return res.status(403).json({
+                    message: "Forbidden: access denied",
+                });
             }
 
-            next()
+            next();
         } catch (error) {
-            return res.status(401).json({ message: "Invalid token" })
+            return res.status(401).json({ message: "Invalid token" });
         }
-    }
+    };
 }
 
 export type IJWTPayload = {

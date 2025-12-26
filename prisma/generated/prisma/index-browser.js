@@ -127,6 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   password: 'password',
   bio: 'bio',
+  isPremium: 'isPremium',
   travelInterest: 'travelInterest',
   visitedCountries: 'visitedCountries',
   currentLocation: 'currentLocation',
@@ -138,11 +139,12 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.TravelScalarFieldEnum = {
   id: 'id',
   destination: 'destination',
+  description: 'description',
   startDate: 'startDate',
   endDate: 'endDate',
   budgetRange: 'budgetRange',
   travelType: 'travelType',
-  description: 'description',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -155,17 +157,12 @@ exports.Prisma.PaymentScalarFieldEnum = {
   amount: 'amount',
   currency: 'currency',
   status: 'status',
-  rawResponse: 'rawResponse',
   createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -176,12 +173,6 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',

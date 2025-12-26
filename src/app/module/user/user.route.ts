@@ -5,7 +5,7 @@ import { Role } from "../../../../prisma/generated/prisma";
 const user = express.Router();
 
 user.post("/userCreate", userCOntroller.userCreation)
-user.get("/me", auth, userCOntroller.getOwnUser)
-user.patch("/update-profile", auth, userCOntroller.editUser)
+user.get("/me", auth(Role.ADMIN, Role.USER), userCOntroller.getOwnUser)
+user.patch("/update-profile", auth(Role.ADMIN, Role.USER), userCOntroller.editUser)
 
 export const userRouter = user;

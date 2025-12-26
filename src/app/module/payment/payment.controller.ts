@@ -1,35 +1,30 @@
 import { Request, Response } from "express"
 import { paymentService } from "./payment.service"
 import { sendResponse } from "../../../utils/resHelper"
-import { prisma } from "../../../lib/prisma";
 
 const initPaymentController = async (req: Request, res: Response) => {
     try {
         const user = req.user.email;
-        const result = await paymentService.initiatePayment(user)
+        const { amount } = req.body;
+
+        const result = await paymentService.initiatePayment(user, amount)
         sendResponse(res, {
             message: "Payment done",
-            data: result
+            data: result.redirectGatewayURL
         })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: "Payment init failed" })
     }
 }
 
 const successController = async (req: Request, res: Response) => {
     const { val_id, tran_id, status } = req.body
+    console.log(val_id, tran_id, status)
     const validation = await paymentService.validatePaymentService(val_id, tran_id, status)
 
     // save payment info in DB here
-    await prisma.payment.update
-    ({
-        where: { tranId: tran_id },
-        data: {
-            valId: validation.val_id,
-            status: "SUCCESS",
-            rawResponse: validation,
-        },
-    })
+
     res.json({
         message: "Payment successful",
         data: validation,

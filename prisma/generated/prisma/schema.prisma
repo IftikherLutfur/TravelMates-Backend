@@ -14,9 +14,11 @@ model User {
   role             Role      @default(USER)
   password         String
   bio              String?
+  isPremium        Boolean   @default(false)
   travelInterest   String[]  @default([])
   visitedCountries String[]  @default([])
   payment          Payment[]
+  travel           Travel[]
   currentLocation  String?
   profileImage     String?
   createdAt        DateTime  @default(now())
@@ -26,11 +28,13 @@ model User {
 model Travel {
   id          String     @id @default(uuid())
   destination String
+  description String
   startDate   DateTime
   endDate     DateTime
   budgetRange Int
   travelType  TravelType
-  description String
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
@@ -40,13 +44,12 @@ model Payment {
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
-  tranId      String   @unique
-  valId       String   @unique
-  amount      Float
-  currency    String
-  status      String
-  rawResponse Json // full SSLCommerz payload (very useful)
-  createdAt   DateTime @default(now())
+  tranId    String   @unique
+  valId     String   @unique
+  amount    Float
+  currency  String
+  status    String
+  createdAt DateTime @default(now())
 }
 
 enum TravelType {

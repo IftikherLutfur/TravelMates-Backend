@@ -1,5 +1,6 @@
 
 import SSLCommerzPayment from "sslcommerz-lts"
+import { v4 as uuidv4 } from 'uuid';
 import { sslcommerzConfig } from "../../../utils/sslConfig"
 import { prisma } from "../../../lib/prisma"
 
@@ -9,30 +10,33 @@ const sslcz = new SSLCommerzPayment(
     sslcommerzConfig.is_live
 )
 
-const initiatePayment = async (user: any) => {
+const initiatePayment = async (user: string, price: number) => {
     const currentUser = await prisma.user.findUnique({
         where:
         {
             email: user
         }
     })
-    console.log(currentUser)
-
-    // const tranId = "REF_" + Date.now()
-    // await prisma.payment.create({
-    //     data: {
-    //         userId:" currentUser?.id",
-    //         tranId,
-    //         valId: "PENDING",
-    //         amount: 100 as number,
-    //         currency: "BDT",
-    //         status: "PENDING",
-    //     },
-    // })
+    if (!currentUser) {
+        throw new Error("User not found")
+    }
+    const unidqueId = uuidv4()
+    const tranId = "REF_" + unidqueId
+    await prisma.payment.create({
+        data: {
+            userId: currentUser.id,
+            tranId,
+            valId: "validId" + unidqueId,
+            amount: price as number,
+            currency: "BDT",
+            status: "PENDING",
+            rawResponse: "Nothing"
+        },
+    })
     const datas = {
-        total_amount: 100,
+        total_amount: price,
         currency: "BDT",
-        tran_id: "REF_" + Date.now(),
+        tran_id: tranId,
         success_url: `http://localhost:3000/Payment/success`,
         fail_url: `http://localhost:3000/Payment/fail`,
         cancel_url: `http://localhost:3000/Payment/cancel`,
@@ -61,14 +65,39 @@ const initiatePayment = async (user: any) => {
         ship_country: "Bangladesh",
     }
 
-    console.log(datas)
+    await prisma.user.update({
+        where: {
+            email: user
+        },
+        data: {
+            isPremium: true
+        }
+    })
+
+
+    // console.log(datas)
     return await sslcz.init(datas)
+
 }
 
 const validatePaymentService = async (val_id: string, tran_id: string, status: string) => {
-    return await sslcz.validate({ val_id })
+    const payment = await prisma.payment.findUnique({
+        where: {
+            tranId: tran_id
+        }
+    })
+    console.log(payment)
+    await prisma.payment.update
+        ({
+            where: { tranId: tran_id },
+            data: {
+                valId: payment?.valId,
+                status: "SUCCESS",
+                rawResponse: payment?.rawResponse as string,
+            },
+        })
+    return await sslcz.validate({ val_id, tran_id, status })
 }
-
 const transactionByIdService = async (tran_id: string) => {
     return await sslcz.transactionQueryByTransactionId({ tran_id })
 }

@@ -17,7 +17,6 @@ const userCreation = async (req: Request, res: Response) => {
 const getOwnUser = async (req: Request, res: Response) => {
   try {
     const email = req.user.email;
-
     const user = await userService.getOwnUser(email);
 
     sendResponse(res, {
