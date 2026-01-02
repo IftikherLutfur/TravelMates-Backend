@@ -9,24 +9,40 @@ const travelCreate = async (payload: any, userEmail: string) => {
     })
     const travel = await prisma.travel.create({
         data: {
-            startDate,
-            endDate,
-            budgetRange,
+            startDate: new Date(startDate), // ✅ FIX
+            endDate: new Date(endDate),     // ✅ FIX
+            budgetRange: Number(budgetRange),
             description,
             travelType,
             destination,
-            userId: user?.id as string
+            userEmail: user?.email as string
         }
     })
+    console.log(travel)
     return travel;
 }
 
 const getAllTravel = async () => {
-    const travel = await prisma.travel.findMany()
+    return await prisma.travel.findMany({
+        orderBy: {
+            startDate: "asc", // upcoming trips first
+        },
+    });
+};
+
+
+const getIndividualTravel = async (email: string) => {
+    const travel = await prisma.travel.findMany({
+        where: {
+            userEmail: email
+        }
+    })
+
     return travel;
 }
 
 export const travelService = {
     travelCreate,
-    getAllTravel
+    getAllTravel,
+    getIndividualTravel
 }

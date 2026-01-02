@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs"
 import { prisma } from "../../../lib/prisma"
+import { Userstatus } from "../../../../prisma/generated/prisma"
 
 const userCreation = async (payload: any) => {
   const hashedPassword = await bcrypt.hash(payload.password, 10)
@@ -16,6 +17,11 @@ const userCreation = async (payload: any) => {
       name: payload.name,
       email: payload.email,
       role: payload.role,
+      bio: payload.bio,
+      currentLocation: payload.currentLocation,
+      travelInterest: payload.travelInterest,
+      visitedCountries: payload.visitedCountries,
+      profileImage: payload.profileImage,
       password: hashedPassword,
 
     }
@@ -30,6 +36,48 @@ const getOwnUser = async (email: string) => {
     }
   })
   return user;
+}
+
+
+const getAllUser = async (email: string) => {
+  const isAdmin = await prisma.user.findUnique({
+    where: {
+      email: email
+    }
+  })
+  if (isAdmin?.userStatus === "DEACTIVE") {
+    throw new Error("This user is deactive")
+  }
+  if (isAdmin?.role !== "ADMIN") {
+    throw new Error("This user is not a admin")
+  }
+
+  return await prisma.user.findMany()
+
+
+}
+
+const activeToDeactive = async (email: string, userId: string, status: Userstatus) => {
+  const isAdmin = await prisma.user.findUnique({
+    where: {
+      email: email
+    }
+  })
+  if (isAdmin?.userStatus === "DEACTIVE") {
+    throw new Error("This user is deactive")
+  }
+  if (isAdmin?.role !== "ADMIN") {
+    throw new Error("This user is not a admin")
+  }
+
+  return await prisma.user.update({
+    where:{
+      id: userId
+    },
+    data:{
+      userStatus: status
+    }
+  })
 }
 
 const editUser = async (email: string, payload: any) => {
@@ -50,8 +98,12 @@ const editUser = async (email: string, payload: any) => {
   return edit
 }
 
+
+
 export const userService = {
   userCreation,
   getOwnUser,
-  editUser
+  editUser,
+  getAllUser,
+  activeToDeactive
 } 

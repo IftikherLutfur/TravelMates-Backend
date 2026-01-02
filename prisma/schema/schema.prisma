@@ -19,6 +19,7 @@ model User {
   visitedCountries String[]  @default([])
   payment          Payment[]
   travel           Travel[]
+  userStatus       Userstatus  @default(ACTIVE)
   currentLocation  String?
   profileImage     String?
   createdAt        DateTime  @default(now())
@@ -26,17 +27,17 @@ model User {
 }
 
 model Travel {
-  id          String @id @default(uuid())
+  id          String     @id @default(uuid())
   destination String
   description String
   startDate   DateTime
   endDate     DateTime
   budgetRange Int
   travelType  TravelType
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  userEmail   String
+  user        User       @relation(fields: [userEmail], references: [email])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Payment {
@@ -50,6 +51,11 @@ model Payment {
   currency  String
   status    String
   createdAt DateTime @default(now())
+}
+
+enum Userstatus {
+  ACTIVE
+  DEACTIVE
 }
 
 enum TravelType {

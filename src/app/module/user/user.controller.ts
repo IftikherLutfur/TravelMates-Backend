@@ -29,6 +29,38 @@ const getOwnUser = async (req: Request, res: Response) => {
   }
 };
 
+// Get all user only for Admin
+
+const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const userEmail = req.user.email;
+    const allUser = await userService.getAllUser(userEmail)
+    sendResponse(res, {
+      message: "Here is all the  user data",
+      statusCode: 200,
+      data: allUser
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const activeToDeactive = async (req: Request, res: Response) => {
+  try {
+    const userEmail = req.user.email;
+    const userId = req.params.id
+    const userStatus = req.body.userStatus
+    const userStatusEdit = await userService.activeToDeactive(userEmail, userId, userStatus)
+    sendResponse(res, {
+      message: "User status has been updated",
+      statusCode: 200,
+      data: userStatusEdit
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({message: error})
+  }
+}
 
 const editUser = async (req: Request, res: Response) => {
   try {
@@ -47,5 +79,7 @@ const editUser = async (req: Request, res: Response) => {
 export const userCOntroller = {
   userCreation,
   getOwnUser,
-  editUser
+  editUser,
+  getAllUser,
+  activeToDeactive
 }

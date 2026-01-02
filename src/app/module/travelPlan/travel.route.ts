@@ -5,5 +5,6 @@ import { Role } from "../../../../prisma/generated/prisma";
 
 const travel = express.Router()
 travel.post("/create", auth(Role.USER), travelController.travelCreate)
+travel.get("/myTravels", auth(Role.USER), travelController.getIndividualTravel)
 travel.get("/allTravel", travelController.getAllTravel)
 export const travelRouter = travel; 

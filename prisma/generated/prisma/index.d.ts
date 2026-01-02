@@ -33,7 +33,15 @@ export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
  * Enums
  */
 export namespace $Enums {
-  export const TravelType: {
+  export const Userstatus: {
+  ACTIVE: 'ACTIVE',
+  DEACTIVE: 'DEACTIVE'
+};
+
+export type Userstatus = (typeof Userstatus)[keyof typeof Userstatus]
+
+
+export const TravelType: {
   SOLO: 'SOLO',
   FAMILY: 'FAMILY',
   FRIENDS: 'FRIENDS'
@@ -50,6 +58,10 @@ export const Role: {
 export type Role = (typeof Role)[keyof typeof Role]
 
 }
+
+export type Userstatus = $Enums.Userstatus
+
+export const Userstatus: typeof $Enums.Userstatus
 
 export type TravelType = $Enums.TravelType
 
@@ -1131,6 +1143,7 @@ export namespace Prisma {
     password: string | null
     bio: string | null
     isPremium: boolean | null
+    userStatus: $Enums.Userstatus | null
     currentLocation: string | null
     profileImage: string | null
     createdAt: Date | null
@@ -1145,6 +1158,7 @@ export namespace Prisma {
     password: string | null
     bio: string | null
     isPremium: boolean | null
+    userStatus: $Enums.Userstatus | null
     currentLocation: string | null
     profileImage: string | null
     createdAt: Date | null
@@ -1161,6 +1175,7 @@ export namespace Prisma {
     isPremium: number
     travelInterest: number
     visitedCountries: number
+    userStatus: number
     currentLocation: number
     profileImage: number
     createdAt: number
@@ -1177,6 +1192,7 @@ export namespace Prisma {
     password?: true
     bio?: true
     isPremium?: true
+    userStatus?: true
     currentLocation?: true
     profileImage?: true
     createdAt?: true
@@ -1191,6 +1207,7 @@ export namespace Prisma {
     password?: true
     bio?: true
     isPremium?: true
+    userStatus?: true
     currentLocation?: true
     profileImage?: true
     createdAt?: true
@@ -1207,6 +1224,7 @@ export namespace Prisma {
     isPremium?: true
     travelInterest?: true
     visitedCountries?: true
+    userStatus?: true
     currentLocation?: true
     profileImage?: true
     createdAt?: true
@@ -1296,6 +1314,7 @@ export namespace Prisma {
     isPremium: boolean
     travelInterest: string[]
     visitedCountries: string[]
+    userStatus: $Enums.Userstatus
     currentLocation: string | null
     profileImage: string | null
     createdAt: Date
@@ -1329,6 +1348,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
+    userStatus?: boolean
     currentLocation?: boolean
     profileImage?: boolean
     createdAt?: boolean
@@ -1348,6 +1368,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
+    userStatus?: boolean
     currentLocation?: boolean
     profileImage?: boolean
     createdAt?: boolean
@@ -1364,6 +1385,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
+    userStatus?: boolean
     currentLocation?: boolean
     profileImage?: boolean
     createdAt?: boolean
@@ -1380,13 +1402,14 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: boolean
     visitedCountries?: boolean
+    userStatus?: boolean
     currentLocation?: boolean
     profileImage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "role" | "password" | "bio" | "isPremium" | "travelInterest" | "visitedCountries" | "currentLocation" | "profileImage" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "role" | "password" | "bio" | "isPremium" | "travelInterest" | "visitedCountries" | "userStatus" | "currentLocation" | "profileImage" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payment?: boolean | User$paymentArgs<ExtArgs>
     travel?: boolean | User$travelArgs<ExtArgs>
@@ -1411,6 +1434,7 @@ export namespace Prisma {
       isPremium: boolean
       travelInterest: string[]
       visitedCountries: string[]
+      userStatus: $Enums.Userstatus
       currentLocation: string | null
       profileImage: string | null
       createdAt: Date
@@ -1849,6 +1873,7 @@ export namespace Prisma {
     readonly isPremium: FieldRef<"User", 'Boolean'>
     readonly travelInterest: FieldRef<"User", 'String[]'>
     readonly visitedCountries: FieldRef<"User", 'String[]'>
+    readonly userStatus: FieldRef<"User", 'Userstatus'>
     readonly currentLocation: FieldRef<"User", 'String'>
     readonly profileImage: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -2335,7 +2360,7 @@ export namespace Prisma {
     endDate: Date | null
     budgetRange: number | null
     travelType: $Enums.TravelType | null
-    userId: string | null
+    userEmail: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2348,7 +2373,7 @@ export namespace Prisma {
     endDate: Date | null
     budgetRange: number | null
     travelType: $Enums.TravelType | null
-    userId: string | null
+    userEmail: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2361,7 +2386,7 @@ export namespace Prisma {
     endDate: number
     budgetRange: number
     travelType: number
-    userId: number
+    userEmail: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2384,7 +2409,7 @@ export namespace Prisma {
     endDate?: true
     budgetRange?: true
     travelType?: true
-    userId?: true
+    userEmail?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2397,7 +2422,7 @@ export namespace Prisma {
     endDate?: true
     budgetRange?: true
     travelType?: true
-    userId?: true
+    userEmail?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2410,7 +2435,7 @@ export namespace Prisma {
     endDate?: true
     budgetRange?: true
     travelType?: true
-    userId?: true
+    userEmail?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2510,7 +2535,7 @@ export namespace Prisma {
     endDate: Date
     budgetRange: number
     travelType: $Enums.TravelType
-    userId: string
+    userEmail: string
     createdAt: Date
     updatedAt: Date
     _count: TravelCountAggregateOutputType | null
@@ -2542,7 +2567,7 @@ export namespace Prisma {
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    userId?: boolean
+    userEmail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2556,7 +2581,7 @@ export namespace Prisma {
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    userId?: boolean
+    userEmail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2570,7 +2595,7 @@ export namespace Prisma {
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    userId?: boolean
+    userEmail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2584,12 +2609,12 @@ export namespace Prisma {
     endDate?: boolean
     budgetRange?: boolean
     travelType?: boolean
-    userId?: boolean
+    userEmail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destination" | "description" | "startDate" | "endDate" | "budgetRange" | "travelType" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
+  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destination" | "description" | "startDate" | "endDate" | "budgetRange" | "travelType" | "userEmail" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
   export type TravelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2613,7 +2638,7 @@ export namespace Prisma {
       endDate: Date
       budgetRange: number
       travelType: $Enums.TravelType
-      userId: string
+      userEmail: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["travel"]>
@@ -3047,7 +3072,7 @@ export namespace Prisma {
     readonly endDate: FieldRef<"Travel", 'DateTime'>
     readonly budgetRange: FieldRef<"Travel", 'Int'>
     readonly travelType: FieldRef<"Travel", 'TravelType'>
-    readonly userId: FieldRef<"Travel", 'String'>
+    readonly userEmail: FieldRef<"Travel", 'String'>
     readonly createdAt: FieldRef<"Travel", 'DateTime'>
     readonly updatedAt: FieldRef<"Travel", 'DateTime'>
   }
@@ -4619,6 +4644,7 @@ export namespace Prisma {
     isPremium: 'isPremium',
     travelInterest: 'travelInterest',
     visitedCountries: 'visitedCountries',
+    userStatus: 'userStatus',
     currentLocation: 'currentLocation',
     profileImage: 'profileImage',
     createdAt: 'createdAt',
@@ -4636,7 +4662,7 @@ export namespace Prisma {
     endDate: 'endDate',
     budgetRange: 'budgetRange',
     travelType: 'travelType',
-    userId: 'userId',
+    userEmail: 'userEmail',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4723,6 +4749,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Userstatus'
+   */
+  export type EnumUserstatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Userstatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'Userstatus[]'
+   */
+  export type ListEnumUserstatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Userstatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4794,6 +4834,7 @@ export namespace Prisma {
     isPremium?: BoolFilter<"User"> | boolean
     travelInterest?: StringNullableListFilter<"User">
     visitedCountries?: StringNullableListFilter<"User">
+    userStatus?: EnumUserstatusFilter<"User"> | $Enums.Userstatus
     currentLocation?: StringNullableFilter<"User"> | string | null
     profileImage?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -4812,6 +4853,7 @@ export namespace Prisma {
     isPremium?: SortOrder
     travelInterest?: SortOrder
     visitedCountries?: SortOrder
+    userStatus?: SortOrder
     currentLocation?: SortOrderInput | SortOrder
     profileImage?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -4833,6 +4875,7 @@ export namespace Prisma {
     isPremium?: BoolFilter<"User"> | boolean
     travelInterest?: StringNullableListFilter<"User">
     visitedCountries?: StringNullableListFilter<"User">
+    userStatus?: EnumUserstatusFilter<"User"> | $Enums.Userstatus
     currentLocation?: StringNullableFilter<"User"> | string | null
     profileImage?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -4851,6 +4894,7 @@ export namespace Prisma {
     isPremium?: SortOrder
     travelInterest?: SortOrder
     visitedCountries?: SortOrder
+    userStatus?: SortOrder
     currentLocation?: SortOrderInput | SortOrder
     profileImage?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -4873,6 +4917,7 @@ export namespace Prisma {
     isPremium?: BoolWithAggregatesFilter<"User"> | boolean
     travelInterest?: StringNullableListFilter<"User">
     visitedCountries?: StringNullableListFilter<"User">
+    userStatus?: EnumUserstatusWithAggregatesFilter<"User"> | $Enums.Userstatus
     currentLocation?: StringNullableWithAggregatesFilter<"User"> | string | null
     profileImage?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -4890,7 +4935,7 @@ export namespace Prisma {
     endDate?: DateTimeFilter<"Travel"> | Date | string
     budgetRange?: IntFilter<"Travel"> | number
     travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
-    userId?: StringFilter<"Travel"> | string
+    userEmail?: StringFilter<"Travel"> | string
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4904,7 +4949,7 @@ export namespace Prisma {
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    userId?: SortOrder
+    userEmail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -4921,7 +4966,7 @@ export namespace Prisma {
     endDate?: DateTimeFilter<"Travel"> | Date | string
     budgetRange?: IntFilter<"Travel"> | number
     travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
-    userId?: StringFilter<"Travel"> | string
+    userEmail?: StringFilter<"Travel"> | string
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4935,7 +4980,7 @@ export namespace Prisma {
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    userId?: SortOrder
+    userEmail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TravelCountOrderByAggregateInput
@@ -4956,7 +5001,7 @@ export namespace Prisma {
     endDate?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     budgetRange?: IntWithAggregatesFilter<"Travel"> | number
     travelType?: EnumTravelTypeWithAggregatesFilter<"Travel"> | $Enums.TravelType
-    userId?: StringWithAggregatesFilter<"Travel"> | string
+    userEmail?: StringWithAggregatesFilter<"Travel"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
   }
@@ -5043,6 +5088,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -5061,6 +5107,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -5079,6 +5126,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5097,6 +5145,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5115,6 +5164,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -5131,6 +5181,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5147,6 +5198,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5174,7 +5226,7 @@ export namespace Prisma {
     endDate: Date | string
     budgetRange: number
     travelType: $Enums.TravelType
-    userId: string
+    userEmail: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5200,7 +5252,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     budgetRange?: IntFieldUpdateOperationsInput | number
     travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
-    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5213,7 +5265,7 @@ export namespace Prisma {
     endDate: Date | string
     budgetRange: number
     travelType: $Enums.TravelType
-    userId: string
+    userEmail: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5238,7 +5290,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     budgetRange?: IntFieldUpdateOperationsInput | number
     travelType?: EnumTravelTypeFieldUpdateOperationsInput | $Enums.TravelType
-    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5369,6 +5421,13 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type EnumUserstatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Userstatus | EnumUserstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserstatusFilter<$PrismaModel> | $Enums.Userstatus
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5415,6 +5474,7 @@ export namespace Prisma {
     isPremium?: SortOrder
     travelInterest?: SortOrder
     visitedCountries?: SortOrder
+    userStatus?: SortOrder
     currentLocation?: SortOrder
     profileImage?: SortOrder
     createdAt?: SortOrder
@@ -5429,6 +5489,7 @@ export namespace Prisma {
     password?: SortOrder
     bio?: SortOrder
     isPremium?: SortOrder
+    userStatus?: SortOrder
     currentLocation?: SortOrder
     profileImage?: SortOrder
     createdAt?: SortOrder
@@ -5443,6 +5504,7 @@ export namespace Prisma {
     password?: SortOrder
     bio?: SortOrder
     isPremium?: SortOrder
+    userStatus?: SortOrder
     currentLocation?: SortOrder
     profileImage?: SortOrder
     createdAt?: SortOrder
@@ -5503,6 +5565,16 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type EnumUserstatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Userstatus | EnumUserstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserstatusWithAggregatesFilter<$PrismaModel> | $Enums.Userstatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserstatusFilter<$PrismaModel>
+    _max?: NestedEnumUserstatusFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5548,7 +5620,7 @@ export namespace Prisma {
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    userId?: SortOrder
+    userEmail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5565,7 +5637,7 @@ export namespace Prisma {
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    userId?: SortOrder
+    userEmail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5578,7 +5650,7 @@ export namespace Prisma {
     endDate?: SortOrder
     budgetRange?: SortOrder
     travelType?: SortOrder
-    userId?: SortOrder
+    userEmail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5743,6 +5815,10 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type EnumUserstatusFieldUpdateOperationsInput = {
+    set?: $Enums.Userstatus
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -5891,6 +5967,13 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedEnumUserstatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Userstatus | EnumUserstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserstatusFilter<$PrismaModel> | $Enums.Userstatus
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5974,6 +6057,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserstatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Userstatus | EnumUserstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Userstatus[] | ListEnumUserstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserstatusWithAggregatesFilter<$PrismaModel> | $Enums.Userstatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserstatusFilter<$PrismaModel>
+    _max?: NestedEnumUserstatusFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -6171,7 +6264,7 @@ export namespace Prisma {
     endDate?: DateTimeFilter<"Travel"> | Date | string
     budgetRange?: IntFilter<"Travel"> | number
     travelType?: EnumTravelTypeFilter<"Travel"> | $Enums.TravelType
-    userId?: StringFilter<"Travel"> | string
+    userEmail?: StringFilter<"Travel"> | string
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
   }
@@ -6186,6 +6279,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -6203,6 +6297,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -6236,6 +6331,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6253,6 +6349,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6270,6 +6367,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -6287,6 +6385,7 @@ export namespace Prisma {
     isPremium?: boolean
     travelInterest?: UserCreatetravelInterestInput | string[]
     visitedCountries?: UserCreatevisitedCountriesInput | string[]
+    userStatus?: $Enums.Userstatus
     currentLocation?: string | null
     profileImage?: string | null
     createdAt?: Date | string
@@ -6320,6 +6419,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6337,6 +6437,7 @@ export namespace Prisma {
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     travelInterest?: UserUpdatetravelInterestInput | string[]
     visitedCountries?: UserUpdatevisitedCountriesInput | string[]
+    userStatus?: EnumUserstatusFieldUpdateOperationsInput | $Enums.Userstatus
     currentLocation?: NullableStringFieldUpdateOperationsInput | string | null
     profileImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

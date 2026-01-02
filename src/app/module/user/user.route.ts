@@ -4,8 +4,10 @@ import auth from "../../../middleware/isAuthorized";
 import { Role } from "../../../../prisma/generated/prisma";
 const user = express.Router();
 
-user.post("/userCreate", userCOntroller.userCreation)
 user.get("/me", auth(Role.ADMIN, Role.USER), userCOntroller.getOwnUser)
+user.get("/get-all-user", auth(Role.ADMIN), userCOntroller.getAllUser)
+user.post("/userCreate", userCOntroller.userCreation)
+user.patch("/userStatus/:id", auth(Role.ADMIN), userCOntroller.activeToDeactive)
 user.patch("/update-profile", auth(Role.ADMIN, Role.USER), userCOntroller.editUser)
 
 export const userRouter = user;

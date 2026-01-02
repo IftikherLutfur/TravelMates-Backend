@@ -130,6 +130,7 @@ exports.Prisma.UserScalarFieldEnum = {
   isPremium: 'isPremium',
   travelInterest: 'travelInterest',
   visitedCountries: 'visitedCountries',
+  userStatus: 'userStatus',
   currentLocation: 'currentLocation',
   profileImage: 'profileImage',
   createdAt: 'createdAt',
@@ -144,7 +145,7 @@ exports.Prisma.TravelScalarFieldEnum = {
   endDate: 'endDate',
   budgetRange: 'budgetRange',
   travelType: 'travelType',
-  userId: 'userId',
+  userEmail: 'userEmail',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -177,6 +178,11 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   USER: 'USER'
+};
+
+exports.Userstatus = exports.$Enums.Userstatus = {
+  ACTIVE: 'ACTIVE',
+  DEACTIVE: 'DEACTIVE'
 };
 
 exports.TravelType = exports.$Enums.TravelType = {

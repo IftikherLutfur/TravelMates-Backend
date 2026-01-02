@@ -30,7 +30,6 @@ const initiatePayment = async (user: string, price: number) => {
             amount: price as number,
             currency: "BDT",
             status: "PENDING",
-            rawResponse: "Nothing"
         },
     })
     const datas = {
@@ -93,7 +92,6 @@ const validatePaymentService = async (val_id: string, tran_id: string, status: s
             data: {
                 valId: payment?.valId,
                 status: "SUCCESS",
-                rawResponse: payment?.rawResponse as string,
             },
         })
     return await sslcz.validate({ val_id, tran_id, status })
