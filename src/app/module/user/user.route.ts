@@ -6,6 +6,7 @@ const user = express.Router();
 
 user.get("/me", auth(Role.ADMIN, Role.USER), userCOntroller.getOwnUser)
 user.get("/get-all-user", auth(Role.ADMIN), userCOntroller.getAllUser)
+user.get("/:email", userCOntroller.userFindByEmail)
 user.post("/userCreate", userCOntroller.userCreation)
 user.patch("/userStatus/:id", auth(Role.ADMIN), userCOntroller.activeToDeactive)
 user.patch("/update-profile", auth(Role.ADMIN, Role.USER), userCOntroller.editUser)

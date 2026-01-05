@@ -27,8 +27,9 @@ const login = async (req: Request, res: Response) => {
                 refreshToken
             }
         })
-    } catch (error) {
+    } catch (error:any) {
         console.log(error)
+        res.status(500).json({message:error.message})
     }
 }
 const logout = async (req: Request, res: Response) => {

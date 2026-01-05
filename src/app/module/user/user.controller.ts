@@ -9,8 +9,9 @@ const userCreation = async (req: Request, res: Response) => {
       message: "User creation successful",
       data: user
     })
-  } catch (error) {
+  } catch (error:any) {
     console.log(error)
+    res.status(500).json({message:error?.message})
   }
 }
 
@@ -40,8 +41,8 @@ const getAllUser = async (req: Request, res: Response) => {
       statusCode: 200,
       data: allUser
     })
-  } catch (error) {
-    console.log(error)
+  } catch (error: any) {
+    res.status(500).json({message:error?.message})
   }
 }
 
@@ -62,6 +63,22 @@ const activeToDeactive = async (req: Request, res: Response) => {
   }
 }
 
+const userFindByEmail = async (req: Request, res: Response) =>{
+   try {
+    const email = req.params.email;
+    
+    const singleUser = await userService.userFindByEmail(email)
+     sendResponse(res, {
+      message: "User retrived by the email",
+      statusCode: 200,
+      data: singleUser
+    })
+   } catch (error) {
+     console.log(error)
+    res.status(500).json({message: error})
+   }
+}
+
 const editUser = async (req: Request, res: Response) => {
   try {
     const email = req.user.email;
@@ -79,6 +96,7 @@ const editUser = async (req: Request, res: Response) => {
 export const userCOntroller = {
   userCreation,
   getOwnUser,
+  userFindByEmail,
   editUser,
   getAllUser,
   activeToDeactive

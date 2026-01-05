@@ -53,7 +53,17 @@ const getAllUser = async (email: string) => {
   }
 
   return await prisma.user.findMany()
+}
 
+const userFindByEmail = async (email: string, ) => {
+   
+    const findTheUser = await prisma.user.findUnique({
+        where: {
+            email: email
+        }
+    })
+
+    return findTheUser
 
 }
 
@@ -98,11 +108,10 @@ const editUser = async (email: string, payload: any) => {
   return edit
 }
 
-
-
 export const userService = {
   userCreation,
   getOwnUser,
+  userFindByEmail,
   editUser,
   getAllUser,
   activeToDeactive
