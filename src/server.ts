@@ -1,26 +1,41 @@
 import app from "./app";
 import { prisma } from "./lib/prisma";
 
-const port = process.env.PORT || 5000;
+/**
+ * Vercel Serverless Environment
+ * - Do NOT use app.listen()
+ * - Export the app as default
+ * - Connect DB lazily
+ */
 
-async function connectServer() {
+let isConnected = false;
+
+async function connectDB() {
+  if (!isConnected) {
     try {
-        await prisma.$connect();
-        console.log("DB connected")
-        app.listen(port, () => {
-            console.log(`Server is running on ${port}`)
-            console.log(`\n======================================================`);
-            console.log(`🚀 Server listening on port ${port}`);
-            console.log(`Base URL for redirects: ${process.env.BASE_URL}`);
-            console.log(`======================================================\n`);
-            console.log('Endpoints:');
-            console.log('POST /api/payment/init');
-            console.log('POST /api/payment/success, /fail, /cancel');
-            console.log('POST /api/payment/ipn');
-        })
+      await prisma.$connect();
+      isConnected = true;
+      console.log("✅ DB connected");
     } catch (error) {
-        console.log("Connection failed ")
+      console.error("❌ DB connection failed", error);
+      throw error;
     }
+  }
 }
 
-connectServer()
+// Ensure DB is connected before handling requests
+app.use(async (_req, _res, next) => {
+  await connectDB();
+  next();
+});
+
+// Optional: health check
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "🚀 Serverless API is running"
+  });
+});
+
+// 🔥 IMPORTANT: export app (NO listen)
+export default app;
