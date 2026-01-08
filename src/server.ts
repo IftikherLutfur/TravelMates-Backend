@@ -1,4 +1,4 @@
-import app from "./app";
+import app from "../src/app"; // file import specify korte hobe
 import { prisma } from "./lib/prisma";
 import dotenv from "dotenv"
 dotenv.config()
