@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "buld": "tsc",
-    "start": "node dist/index.ts"
+    "start": "node dist/server.js"
   },
   "type": "module",
   "prisma": {
