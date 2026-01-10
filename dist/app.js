@@ -1,29 +1,30 @@
-import dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
-import { userRouter } from "./app/module/user/user.route";
-import { authRouter } from "./app/module/auth/auth.route";
-import { travelRouter } from "./app/module/travelPlan/travel.route";
-import { paymentRoute } from "./app/module/payment/payment.route";
-// import { userRouter } from "./app/module/user/user.route"
-// import { authRouter } from "./app/module/auth/auth.route"
-// import { travelRouter } from "./app/module/travelPlan/travel.route"
-// import { paymentRoute } from "./app/module/payment/payment.route"
-dotenv.config();
-const app = express();
-app.use(cors({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const user_route_1 = require("./app/module/user/user.route");
+const auth_route_1 = require("./app/module/auth/auth.route");
+const travel_route_1 = require("./app/module/travelPlan/travel.route");
+const payment_route_1 = require("./app/module/payment/payment.route");
+dotenv_1.default.config();
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)({
     origin: process.env.FRONTEND_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use("/api/user", userRouter);
-app.use("/api/auth", authRouter);
-app.use("/api/travel", travelRouter);
-app.use("/api/payment", paymentRoute);
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use("/api/user", user_route_1.userRouter);
+app.use("/api/auth", auth_route_1.authRouter);
+app.use("/api/travel", travel_route_1.travelRouter);
+app.use("/api/payment", payment_route_1.paymentRoute);
 app.get("/", (req, res) => {
     res.send("Travel Mates API is running with Typescript");
 });
-export default app;
+exports.default = app;
 //# sourceMappingURL=app.js.map

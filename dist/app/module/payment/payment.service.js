@@ -1,10 +1,16 @@
-import SSLCommerzPayment from "sslcommerz-lts";
-import { v4 as uuidv4 } from 'uuid';
-import { sslcommerzConfig } from "../../../utils/sslConfig";
-import { prisma } from "../../../lib/prisma";
-const sslcz = new SSLCommerzPayment(sslcommerzConfig.store_id, sslcommerzConfig.store_passwd, sslcommerzConfig.is_live);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.paymentService = void 0;
+const sslcommerz_lts_1 = __importDefault(require("sslcommerz-lts"));
+const uuid_1 = require("uuid");
+const sslConfig_1 = require("../../../utils/sslConfig");
+const prisma_1 = require("../../../lib/prisma");
+const sslcz = new sslcommerz_lts_1.default(sslConfig_1.sslcommerzConfig.store_id, sslConfig_1.sslcommerzConfig.store_passwd, sslConfig_1.sslcommerzConfig.is_live);
 const initiatePayment = async (user, price) => {
-    const currentUser = await prisma.user.findUnique({
+    const currentUser = await prisma_1.prisma.user.findUnique({
         where: {
             email: user
         }
@@ -12,9 +18,9 @@ const initiatePayment = async (user, price) => {
     if (!currentUser) {
         throw new Error("User not found");
     }
-    const unidqueId = uuidv4();
+    const unidqueId = (0, uuid_1.v4)();
     const tranId = "REF_" + unidqueId;
-    await prisma.payment.create({
+    await prisma_1.prisma.payment.create({
         data: {
             userId: currentUser.id,
             tranId,
@@ -51,7 +57,7 @@ const initiatePayment = async (user, price) => {
         ship_postcode: "1000",
         ship_country: "Bangladesh",
     };
-    await prisma.user.update({
+    await prisma_1.prisma.user.update({
         where: {
             email: user
         },
@@ -63,13 +69,13 @@ const initiatePayment = async (user, price) => {
     return await sslcz.init(datas);
 };
 const validatePaymentService = async (val_id, tran_id, status) => {
-    const payment = await prisma.payment.findUnique({
+    const payment = await prisma_1.prisma.payment.findUnique({
         where: {
             tranId: tran_id
         }
     });
     console.log(payment);
-    await prisma.payment.update({
+    await prisma_1.prisma.payment.update({
         where: { tranId: tran_id },
         data: {
             valId: payment?.valId,
@@ -81,7 +87,7 @@ const validatePaymentService = async (val_id, tran_id, status) => {
 const transactionByIdService = async (tran_id) => {
     return await sslcz.transactionQueryByTransactionId({ tran_id });
 };
-export const paymentService = {
+exports.paymentService = {
     initiatePayment,
     validatePaymentService,
     transactionByIdService

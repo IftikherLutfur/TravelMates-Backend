@@ -1,12 +1,15 @@
-import { prisma } from "../../../lib/prisma";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.travelService = void 0;
+const prisma_1 = require("../../../lib/prisma");
 const travelCreate = async (payload, userEmail) => {
     const { startDate, endDate, budgetRange, description, travelType, destination } = payload;
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.prisma.user.findUnique({
         where: {
             email: userEmail
         }
     });
-    const userTravelFind = await prisma.travel.findMany({
+    const userTravelFind = await prisma_1.prisma.travel.findMany({
         where: {
             userEmail: userEmail
         }
@@ -17,7 +20,7 @@ const travelCreate = async (payload, userEmail) => {
     if (!user?.isPremium && userTravelFind.length >= 1) {
         throw new Error("You’ve reached the limit of your free plan. Subscribe to post more travel plans.");
     }
-    const travel = await prisma.travel.create({
+    const travel = await prisma_1.prisma.travel.create({
         data: {
             startDate: new Date(startDate), // ✅ FIX
             endDate: new Date(endDate), // ✅ FIX
@@ -32,14 +35,14 @@ const travelCreate = async (payload, userEmail) => {
     return travel;
 };
 const getAllTravel = async () => {
-    return await prisma.travel.findMany({
+    return await prisma_1.prisma.travel.findMany({
         orderBy: {
             startDate: "asc", // upcoming trips first
         },
     });
 };
 const singleTravel = async (id) => {
-    const travel = await prisma.travel.findUnique({
+    const travel = await prisma_1.prisma.travel.findUnique({
         where: {
             id: id
         }
@@ -47,7 +50,7 @@ const singleTravel = async (id) => {
     return travel;
 };
 const getIndividualTravel = async (email) => {
-    const travel = await prisma.travel.findMany({
+    const travel = await prisma_1.prisma.travel.findMany({
         where: {
             userEmail: email
         }
@@ -55,7 +58,7 @@ const getIndividualTravel = async (email) => {
     return travel;
 };
 const travelDelete = async (email, id) => {
-    const isAdmin = await prisma.user.findUnique({
+    const isAdmin = await prisma_1.prisma.user.findUnique({
         where: {
             email: email
         }
@@ -63,11 +66,11 @@ const travelDelete = async (email, id) => {
     if (isAdmin?.email !== email) {
         throw new Error("You are not authorized");
     }
-    return await prisma.travel.delete({
+    return await prisma_1.prisma.travel.delete({
         where: { id: id }
     });
 };
-export const travelService = {
+exports.travelService = {
     travelCreate,
     getAllTravel,
     getIndividualTravel,

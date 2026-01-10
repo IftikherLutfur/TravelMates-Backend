@@ -1,8 +1,14 @@
-import bcrypt from "bcryptjs";
-import { prisma } from "../../../lib/prisma";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userService = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const prisma_1 = require("../../../lib/prisma");
 const userCreation = async (payload) => {
-    const hashedPassword = await bcrypt.hash(payload.password, 10);
-    const isUserExist = await prisma.user.findUnique({
+    const hashedPassword = await bcryptjs_1.default.hash(payload.password, 10);
+    const isUserExist = await prisma_1.prisma.user.findUnique({
         where: {
             email: payload.email
         }
@@ -10,7 +16,7 @@ const userCreation = async (payload) => {
     if (isUserExist) {
         throw new Error("This email already taken");
     }
-    const user = await prisma.user.create({
+    const user = await prisma_1.prisma.user.create({
         data: {
             name: payload.name,
             email: payload.email,
@@ -26,7 +32,7 @@ const userCreation = async (payload) => {
     return user;
 };
 const getOwnUser = async (email) => {
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.prisma.user.findUnique({
         where: {
             email: email
         }
@@ -34,7 +40,7 @@ const getOwnUser = async (email) => {
     return user;
 };
 const getAllUser = async (email) => {
-    const isAdmin = await prisma.user.findUnique({
+    const isAdmin = await prisma_1.prisma.user.findUnique({
         where: {
             email: email
         }
@@ -45,10 +51,10 @@ const getAllUser = async (email) => {
     if (isAdmin?.role !== "ADMIN") {
         throw new Error("This user is not a admin");
     }
-    return await prisma.user.findMany();
+    return await prisma_1.prisma.user.findMany();
 };
 const userFindByEmail = async (email) => {
-    const findTheUser = await prisma.user.findUnique({
+    const findTheUser = await prisma_1.prisma.user.findUnique({
         where: {
             email: email
         }
@@ -56,7 +62,7 @@ const userFindByEmail = async (email) => {
     return findTheUser;
 };
 const activeToDeactive = async (email, userId, status) => {
-    const isAdmin = await prisma.user.findUnique({
+    const isAdmin = await prisma_1.prisma.user.findUnique({
         where: {
             email: email
         }
@@ -67,7 +73,7 @@ const activeToDeactive = async (email, userId, status) => {
     if (isAdmin?.role !== "ADMIN") {
         throw new Error("This user is not a admin");
     }
-    return await prisma.user.update({
+    return await prisma_1.prisma.user.update({
         where: {
             id: userId
         },
@@ -77,7 +83,7 @@ const activeToDeactive = async (email, userId, status) => {
     });
 };
 const editUser = async (email, payload) => {
-    const edit = await prisma.user.update({
+    const edit = await prisma_1.prisma.user.update({
         data: {
             bio: payload.bio,
             name: payload.name,
@@ -93,7 +99,7 @@ const editUser = async (email, payload) => {
     });
     return edit;
 };
-export const userService = {
+exports.userService = {
     userCreation,
     getOwnUser,
     userFindByEmail,

@@ -1,11 +1,14 @@
-import { paymentService } from "./payment.service";
-import { sendResponse } from "../../../utils/resHelper";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.paymentController = void 0;
+const payment_service_1 = require("./payment.service");
+const resHelper_1 = require("../../../utils/resHelper");
 const initPaymentController = async (req, res) => {
     try {
         const user = req.user.email;
         const { amount } = req.body;
-        const result = await paymentService.initiatePayment(user, amount);
-        sendResponse(res, {
+        const result = await payment_service_1.paymentService.initiatePayment(user, amount);
+        (0, resHelper_1.sendResponse)(res, {
             message: "Payment done",
             data: result.redirectGatewayURL
         });
@@ -19,7 +22,7 @@ const successController = async (req, res) => {
     try {
         const { val_id, tran_id, status } = req.body;
         console.log(val_id, tran_id, status);
-        const validation = await paymentService.validatePaymentService(val_id, tran_id, status);
+        const validation = await payment_service_1.paymentService.validatePaymentService(val_id, tran_id, status);
         // save payment info in DB here
         return res.status(200).json({
             message: "Payment successful",
@@ -49,7 +52,7 @@ const cancelController = async (_req, res) => {
         return res.status(500).json({ message: "Something went wrong" });
     }
 };
-export const paymentController = {
+exports.paymentController = {
     initPaymentController,
     successController,
     failController,

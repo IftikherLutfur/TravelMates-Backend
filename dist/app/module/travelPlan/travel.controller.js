@@ -1,11 +1,14 @@
-import { travelService } from "./travel.service";
-import { sendResponse } from "../../../utils/resHelper";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.travelController = void 0;
+const travel_service_1 = require("./travel.service");
+const resHelper_1 = require("../../../utils/resHelper");
 const travelCreate = async (req, res) => {
     try {
         const user = req.user.email;
-        const travel = await travelService.travelCreate(req.body, user);
+        const travel = await travel_service_1.travelService.travelCreate(req.body, user);
         console.log(travel);
-        sendResponse(res, {
+        (0, resHelper_1.sendResponse)(res, {
             message: "Travel plane has been created",
             statusCode: 200,
             data: travel
@@ -21,8 +24,8 @@ const travelCreate = async (req, res) => {
 };
 const getAllTravel = async (req, res) => {
     try {
-        const travel = await travelService.getAllTravel();
-        sendResponse(res, {
+        const travel = await travel_service_1.travelService.getAllTravel();
+        (0, resHelper_1.sendResponse)(res, {
             message: "Get all the travel",
             statusCode: 200,
             data: travel,
@@ -38,8 +41,8 @@ const getAllTravel = async (req, res) => {
 const singleTravel = async (req, res) => {
     try {
         const id = req.params.id;
-        const travel = await travelService.singleTravel(id);
-        sendResponse(res, {
+        const travel = await travel_service_1.travelService.singleTravel(id);
+        (0, resHelper_1.sendResponse)(res, {
             message: "Retrived the single travel",
             statusCode: 200,
             data: travel,
@@ -55,8 +58,8 @@ const singleTravel = async (req, res) => {
 const getIndividualTravel = async (req, res) => {
     try {
         const email = req.user.email;
-        const getIndividualTravel = await travelService.getIndividualTravel(email);
-        sendResponse(res, {
+        const getIndividualTravel = await travel_service_1.travelService.getIndividualTravel(email);
+        (0, resHelper_1.sendResponse)(res, {
             message: "Get all the travel",
             statusCode: 200,
             data: getIndividualTravel
@@ -70,8 +73,8 @@ const travelDelete = async (req, res) => {
     try {
         const email = req.user.email;
         const travelId = req.params.id;
-        await travelService.travelDelete(email, travelId);
-        sendResponse(res, {
+        await travel_service_1.travelService.travelDelete(email, travelId);
+        (0, resHelper_1.sendResponse)(res, {
             message: "Delete the travel",
             statusCode: 200,
             data: null
@@ -81,7 +84,7 @@ const travelDelete = async (req, res) => {
         console.log(error);
     }
 };
-export const travelController = {
+exports.travelController = {
     travelCreate,
     getAllTravel,
     getIndividualTravel,

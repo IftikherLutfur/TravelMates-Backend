@@ -1,5 +1,11 @@
-import jwt from "jsonwebtoken";
-export default function auth(...requiredRoles) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = auth;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+function auth(...requiredRoles) {
     return (req, res, next) => {
         try {
             const authHeader = req.headers.authorization;
@@ -10,7 +16,7 @@ export default function auth(...requiredRoles) {
             if (!token) {
                 return res.status(401).json({ message: "Unauthorized user" });
             }
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
             req.user = decoded;
             if (requiredRoles.length > 0 &&
                 !requiredRoles.includes(decoded.role)) {

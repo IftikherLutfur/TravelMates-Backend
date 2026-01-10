@@ -1,9 +1,12 @@
-import { authService } from "./auth.service";
-import { sendResponse } from "../../../utils/resHelper";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authController = void 0;
+const auth_service_1 = require("./auth.service");
+const resHelper_1 = require("../../../utils/resHelper");
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const userLog = await authService.login({ email, password });
+        const userLog = await auth_service_1.authService.login({ email, password });
         const { accessToken, refreshToken } = userLog;
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
@@ -17,7 +20,7 @@ const login = async (req, res) => {
             sameSite: "none",
             maxAge: 1000 * 60 * 60
         });
-        sendResponse(res, {
+        (0, resHelper_1.sendResponse)(res, {
             message: "Successfully loges in",
             statusCode: 200,
             data: {
@@ -43,7 +46,7 @@ const logout = async (req, res) => {
             secure: true,
             sameSite: "none"
         });
-        sendResponse(res, {
+        (0, resHelper_1.sendResponse)(res, {
             message: "Loged out successful",
             statusCode: 200
         });
@@ -55,7 +58,7 @@ const logout = async (req, res) => {
         });
     }
 };
-export const authController = {
+exports.authController = {
     login,
     logout
 };
