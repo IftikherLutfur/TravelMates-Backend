@@ -41,7 +41,7 @@ const getAllTravel = async (req: Request, res: Response) => {
 const singleTravel = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const travel = await travelService.singleTravel(id);
+    const travel = await travelService.singleTravel(id as string);
 
     sendResponse(res, {
       message: "Retrived the single travel",
@@ -76,7 +76,7 @@ const travelDelete = async (req: Request, res: Response) => {
   try {
     const email = req.user.email;
     const travelId = req.params.id;
-   await travelService.travelDelete(email, travelId);
+   await travelService.travelDelete(email, travelId as string);
     sendResponse(res, {
       message: "Delete the travel",
       statusCode: 200,

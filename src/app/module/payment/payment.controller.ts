@@ -4,39 +4,60 @@ import { sendResponse } from "../../../utils/resHelper"
 
 const initPaymentController = async (req: Request, res: Response) => {
     try {
-        const user = req.user.email;
-        const { amount } = req.body;
+        const user = req.user.email
+        const { amount } = req.body
 
         const result = await paymentService.initiatePayment(user, amount)
+
         sendResponse(res, {
             message: "Payment done",
             data: result.redirectGatewayURL
         })
     } catch (error) {
-        console.log(error)
+        console.error("Init payment error:", error)
         return res.status(500).json({ message: "Payment init failed" })
     }
 }
 
 const successController = async (req: Request, res: Response) => {
-    const { val_id, tran_id, status } = req.body
-    console.log(val_id, tran_id, status)
-    const validation = await paymentService.validatePaymentService(val_id, tran_id, status)
+    try {
+        const { val_id, tran_id, status } = req.body
+        console.log(val_id, tran_id, status)
 
-    // save payment info in DB here
+        const validation = await paymentService.validatePaymentService(
+            val_id,
+            tran_id,
+            status
+        )
 
-    res.json({
-        message: "Payment successful",
-        data: validation,
-    })
+        // save payment info in DB here
+
+        return res.status(200).json({
+            message: "Payment successful",
+            data: validation,
+        })
+    } catch (error) {
+        console.error("Payment success error:", error)
+        return res.status(500).json({ message: "Payment validation failed" })
+    }
 }
 
-const failController = (_req: Request, res: Response) => {
-    res.json({ message: "Payment failed" })
+const failController = async (_req: Request, res: Response) => {
+    try {
+        return res.status(400).json({ message: "Payment failed" })
+    } catch (error) {
+        console.error("Payment fail error:", error)
+        return res.status(500).json({ message: "Something went wrong" })
+    }
 }
 
-const cancelController = (_req: Request, res: Response) => {
-    res.json({ message: "Payment cancelled" })
+const cancelController = async (_req: Request, res: Response) => {
+    try {
+        return res.status(400).json({ message: "Payment cancelled" })
+    } catch (error) {
+        console.error("Payment cancel error:", error)
+        return res.status(500).json({ message: "Something went wrong" })
+    }
 }
 
 export const paymentController = {
@@ -44,5 +65,4 @@ export const paymentController = {
     successController,
     failController,
     cancelController
-
 }

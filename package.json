@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "dependencies": {
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
@@ -18,7 +17,8 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "postinstall": "npx prisma generate"
   },
   "prisma": {
     "schema": "./prisma/schema.prisma"

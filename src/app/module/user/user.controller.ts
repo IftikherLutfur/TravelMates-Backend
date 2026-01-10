@@ -51,7 +51,7 @@ const activeToDeactive = async (req: Request, res: Response) => {
     const userEmail = req.user.email;
     const userId = req.params.id
     const userStatus = req.body.userStatus
-    const userStatusEdit = await userService.activeToDeactive(userEmail, userId, userStatus)
+    const userStatusEdit = await userService.activeToDeactive(userEmail, userId as string, userStatus)
     sendResponse(res, {
       message: "User status has been updated",
       statusCode: 200,
@@ -67,7 +67,7 @@ const userFindByEmail = async (req: Request, res: Response) =>{
    try {
     const email = req.params.email;
     
-    const singleUser = await userService.userFindByEmail(email)
+    const singleUser = await userService.userFindByEmail(email as string)
      sendResponse(res, {
       message: "User retrived by the email",
       statusCode: 200,

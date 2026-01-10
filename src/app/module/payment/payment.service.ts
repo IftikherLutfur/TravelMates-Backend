@@ -29,7 +29,7 @@ const initiatePayment = async (user: string, price: number) => {
             valId: "validId" + unidqueId,
             amount: price as number,
             currency: "BDT",
-            status: "PENDING",
+            status: "COMPLETED",
         },
     })
     const datas = {
@@ -90,7 +90,7 @@ const validatePaymentService = async (val_id: string, tran_id: string, status: s
         ({
             where: { tranId: tran_id },
             data: {
-                valId: payment?.valId,
+                valId: payment?.valId as string,
                 status: "SUCCESS",
             },
         })
