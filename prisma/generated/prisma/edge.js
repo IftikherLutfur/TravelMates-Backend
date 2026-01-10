@@ -39,12 +39,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.1.0
- * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+ * Prisma Client JS version: 7.2.0
+ * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
  */
 Prisma.prismaVersion = {
-  client: "7.1.0",
-  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
+  client: "7.2.0",
+  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -173,8 +173,8 @@ exports.Prisma.ModelName = {
  */
 const config = {
   "previewFeatures": [],
-  "clientVersion": "7.1.0",
-  "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
+  "clientVersion": "7.2.0",
+  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider   = \"prisma-client-js\"\n  output     = \"../generated/prisma\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id               String     @id @default(uuid())\n  email            String     @unique\n  name             String\n  role             Role       @default(USER)\n  password         String\n  bio              String?\n  isPremium        Boolean    @default(false)\n  travelInterest   String[]   @default([])\n  visitedCountries String[]   @default([])\n  payment          Payment[]\n  travel           Travel[]\n  userStatus       Userstatus @default(ACTIVE)\n  currentLocation  String?\n  profileImage     String?\n  createdAt        DateTime   @default(now())\n  updatedAt        DateTime   @updatedAt\n}\n\nmodel Travel {\n  id          String     @id @default(uuid())\n  destination String\n  description String\n  startDate   DateTime\n  endDate     DateTime\n  budgetRange Int\n  travelType  TravelType\n  userEmail   String\n  user        User       @relation(fields: [userEmail], references: [email])\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n}\n\nmodel Payment {\n  id     String @id @default(uuid())\n  userId String\n  user   User   @relation(fields: [userId], references: [id])\n\n  tranId    String   @unique\n  valId     String   @unique\n  amount    Float\n  currency  String\n  status    String\n  createdAt DateTime @default(now())\n}\n\nenum Userstatus {\n  ACTIVE\n  DEACTIVE\n}\n\nenum TravelType {\n  SOLO\n  FAMILY\n  FRIENDS\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n"
 }
