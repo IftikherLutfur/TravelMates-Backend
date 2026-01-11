@@ -30,10 +30,10 @@ const getAllTravel = async (req: Request, res: Response) => {
       statusCode: 200,
       data: travel,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("GET ALL TRAVEL ERROR:", error);
     res.status(500).json({
-      message: "Failed to get travel",
+      message: error.message
     });
   }
 };
